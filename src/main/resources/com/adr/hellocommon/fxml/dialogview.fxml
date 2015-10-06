@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root prefHeight="400.0" prefWidth="600.0" stylesheets="@../style/dialog.css" type="StackPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane fx:id="bodydialog" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="350.0" styleClass="bodydialog">
+         <top>
+            <BorderPane styleClass="title" BorderPane.alignment="CENTER">
+               <right>
+                  <Button fx:id="closebutton" cancelButton="true" focusTraversable="false" mnemonicParsing="false" onAction="#onClose" styleClass="close-button" BorderPane.alignment="TOP_CENTER" ButtonBar.buttonData="OK_DONE" />
+               </right>
+               <left>
+                  <Label fx:id="nodetitle" styleClass="titletext" BorderPane.alignment="CENTER" />
+               </left>
+            </BorderPane>
+         </top>
+         <left>
+            <Label fx:id="nodeindicator" styleClass="indicator" BorderPane.alignment="TOP_CENTER">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Label>
+         </left>
+         <center>
+            <StackPane fx:id="nodecontent" styleClass="content" BorderPane.alignment="CENTER" />
+         </center>
+         <bottom>
+            <ButtonBar fx:id="nodebuttons" prefHeight="40.0" prefWidth="200.0" styleClass="buttonlist" BorderPane.alignment="CENTER">
+            </ButtonBar>
+         </bottom>         
+      </BorderPane>
+   </children>
+</fx:root>

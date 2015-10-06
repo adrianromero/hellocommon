@@ -1,0 +1,45 @@
+.bodydialog {
+       
+    -fx-background-color: -fx-background;  
+    -fx-effect: dropshadow(one-pass-box, #555555, 20, 0.5, 3, 3);
+}
+
+.close-button {
+    -fx-background-color: transparent;
+    -fx-background-insets: 5;
+    -fx-background-radius: 2;
+    -fx-alignment: center;
+    -fx-padding: 10px; 
+}
+.close-button:hover {
+    -fx-background-color: linear-gradient(#a3a3a3, #8b8b8b 34%, #777777 36%, #777777 63%, #8b8b8b 65%, #adadad);
+}
+
+.close-button:armed {
+    -fx-background-color: #949494;
+}
+
+.titletext {
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-effect: dropshadow(one-pass-box, #cccccc, 1.0, 0.0, 1.0, 1.0);           
+}
+.title {
+ 
+    -fx-background-color: -fx-box-border, white;
+    -fx-background-insets: 0,0 0 1 0;
+    -fx-padding: 5 10 5 10;
+}
+
+.content {
+    -fx-padding: 15 15 15 0;    
+}
+
+.indicator {
+    -fx-padding: 15 15 15 15;        
+}
+
+.buttonlist {
+    -fx-padding: 0 10 0 10;    
+}
