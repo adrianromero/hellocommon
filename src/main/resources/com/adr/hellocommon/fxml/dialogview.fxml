@@ -9,7 +9,7 @@
    <children>
       <BorderPane fx:id="bodydialog" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="350.0" styleClass="bodydialog">
          <top>
-            <BorderPane styleClass="title" BorderPane.alignment="CENTER">
+            <BorderPane fx:id="header" styleClass="title" BorderPane.alignment="CENTER">
                <right>
                   <Button fx:id="closebutton" cancelButton="true" focusTraversable="false" mnemonicParsing="false" onAction="#onClose" styleClass="close-button" BorderPane.alignment="TOP_CENTER" ButtonBar.buttonData="OK_DONE" />
                </right>

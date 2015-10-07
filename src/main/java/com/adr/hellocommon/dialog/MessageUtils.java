@@ -73,5 +73,12 @@ public class MessageUtils {
         dialog.setIndicator(IconBuilder.create(FontAwesome.FA_WARNING, 48.0).classes("fi-iconyellow", "fi-shadow").build());
         dialog.addButtons(dialog.createOKButton());        
         dialog.show(parent);      
-    }   
+    } 
+    
+    public static DialogView showSystemMessage(StackPane parent, String message) {
+        DialogView dialog = new DialogView();
+        dialog.setMessage(message);
+        dialog.show(parent);  
+        return dialog;
+    }     
 }

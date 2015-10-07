@@ -15,7 +15,15 @@ import javafx.fxml.FXMLLoader;
 public interface AbstractController {
     
     public default void load(String fxml) {  
-        load(fxml, null);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+        loader.setController(this);
+        loader.setRoot(this);
+        
+        try {
+            loader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        } 
     }   
     
     public default void load(String fxml, String resources) {        

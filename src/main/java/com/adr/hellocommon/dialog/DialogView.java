@@ -37,6 +37,7 @@ public class DialogView extends StackPane implements AbstractController {
 
     @FXML private URL url;
     @FXML private ResourceBundle resources;  
+    @FXML private BorderPane header;
     @FXML private BorderPane bodydialog;
     @FXML private Button closebutton;
     @FXML private Label nodetitle;
@@ -50,6 +51,7 @@ public class DialogView extends StackPane implements AbstractController {
     public DialogView() {
         load("/com/adr/hellocommon/fxml/dialogview.fxml", "com/adr/hellocommon/fxml/dialogview");
         setBackground(new Background(new BackgroundFill(Color.gray(0.5, 0.75), CornerRadii.EMPTY, Insets.EMPTY)));
+        header.setVisible(false);
     }
     
     @FXML
@@ -58,7 +60,12 @@ public class DialogView extends StackPane implements AbstractController {
     }    
     
     public void setTitle(String title) {
+        header.setVisible(true);
         nodetitle.setText(title);
+    }
+    
+    public void setCloseButtonVisible(boolean visible) {
+        closebutton.setVisible(visible);
     }
     
     public void setMessage(String message) {
