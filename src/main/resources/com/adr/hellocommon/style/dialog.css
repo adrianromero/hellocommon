@@ -7,12 +7,13 @@
 .close-button {
     -fx-background-color: transparent;
     -fx-background-insets: 5;
-    -fx-background-radius: 2;
+    -fx-background-radius: 5;
     -fx-alignment: center;
-    -fx-padding: 10px; 
+    -fx-padding: 12px 15px 12px 15px; 
+    -fx-text-fill: #555555;
 }
 .close-button:hover {
-    -fx-background-color: linear-gradient(#a3a3a3, #8b8b8b 34%, #777777 36%, #777777 63%, #8b8b8b 65%, #adadad);
+    -fx-background-color: #c3c3c3;
 }
 
 .close-button:armed {
@@ -22,7 +23,7 @@
 .titletext {
     -fx-font-size: 14;
     -fx-font-weight: bold;
-    -fx-text-fill: #333333;
+    -fx-text-fill:#333333;
     -fx-effect: dropshadow(one-pass-box, #cccccc, 1.0, 0.0, 1.0, 1.0);           
 }
 .title {
