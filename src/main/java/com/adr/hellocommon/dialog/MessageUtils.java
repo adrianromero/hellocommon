@@ -10,8 +10,10 @@ import com.adr.fonticon.decorator.FillPaint;
 import com.adr.fonticon.decorator.Shine;
 import java.util.function.Consumer;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
@@ -83,5 +85,33 @@ public class MessageUtils {
         dialog.setMessage(message);
         dialog.show(parent);  
         return dialog;
-    }     
+    }   
+    
+    public static void setDialogRoot(StackPane parent, boolean value) {
+        if (value) {
+            parent.getProperties().put("DialogRoot", Boolean.TRUE);
+        } else {
+            parent.getProperties().remove("DialogRoot");
+        }
+    }
+
+    public static boolean isDialogRoot(StackPane parent) {
+        if (parent.hasProperties()) {
+            Boolean value = (Boolean) parent.getProperties().get("DialogRoot");
+            if (value != null) {
+                return value;
+            }
+        }
+        return false;
+    } 
+    
+    public static StackPane getRoot(Node n) {
+        if (n instanceof StackPane && MessageUtils.isDialogRoot((StackPane) n)) {
+            return (StackPane) n;
+        } else if (n.getParent() != null) {
+            return MessageUtils.getRoot(n.getParent());
+        } else {
+            return null;
+        }         
+    }
 }
