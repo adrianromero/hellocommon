@@ -99,7 +99,7 @@ public class ShowAnimation {
     
     public static Animation createAnimationFade(Node n) {
 
-        FadeTransition s2 = new FadeTransition(Duration.millis(150), n);
+        FadeTransition s2 = new FadeTransition(Duration.millis(300), n);
         s2.setInterpolator(Interpolator.EASE_BOTH);
         s2.setFromValue(0.0);
         s2.setToValue(1.0);

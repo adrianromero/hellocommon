@@ -56,7 +56,7 @@ public class DialogView extends StackPane implements AbstractController {
     
     @FXML
     public void initialize() {
-        closebutton.setGraphic(IconBuilder.create(FontAwesome.FA_CLOSE).classes("fi-iconblack", "fi-shadow").build());
+        closebutton.setGraphic(IconBuilder.create(FontAwesome.FA_CLOSE).color(Color.BLACK).build());
     }    
     
     public void setTitle(String title) {
