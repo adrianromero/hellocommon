@@ -88,6 +88,15 @@ public class DialogView extends StackPane implements AbstractController {
         nodebuttons.getButtons().addAll(buttons);
     }
     
+    public Button createCloselButton() {
+        Button cancel = new Button (resources.getString("button.Close"));
+        cancel.setOnAction((ActionEvent event) -> {
+            dispose();
+        });
+        ButtonBar.setButtonData(cancel, ButtonBar.ButtonData.CANCEL_CLOSE);   
+        return cancel;
+    } 
+    
     public Button createCancelButton() {
         Button cancel = new Button (resources.getString("button.Cancel"));
         cancel.setOnAction((ActionEvent event) -> {
