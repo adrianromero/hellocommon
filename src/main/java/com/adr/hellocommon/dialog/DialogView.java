@@ -46,6 +46,7 @@ public class DialogView extends StackPane implements AbstractController {
     @FXML private ButtonBar nodebuttons;
     
     private Consumer<ActionEvent> actionok = null;    
+    private Consumer<ActionEvent> actiondispose = null;    
     private StackPane parent;
     
     public DialogView() {
@@ -82,6 +83,10 @@ public class DialogView extends StackPane implements AbstractController {
     
     public void setActionOK(Consumer<ActionEvent> actionok) {
         this.actionok = actionok;
+    }  
+    
+    public void setActionDispose(Consumer<ActionEvent> actiondispose) {
+        this.actiondispose = actiondispose;
     }
     
     public void addButtons(Button... buttons) {
@@ -130,6 +135,15 @@ public class DialogView extends StackPane implements AbstractController {
     }
     
     public void dispose() {
+        
+        if (actiondispose != null) {
+            ActionEvent disposeevent = new ActionEvent();
+            actiondispose.accept(disposeevent);
+            if (disposeevent.isConsumed()) {
+                return;
+            }
+        }
+        
         ObservableList<Node> children = parent.getChildren();
         if (children.isEmpty() || children.get(children.size() - 1) != this) {
             throw new RuntimeException("Cannot dispose a DialogView that is not the last node in an Stack Pane.");
@@ -142,15 +156,16 @@ public class DialogView extends StackPane implements AbstractController {
     }
     
     public void doOK() {
-        if (actionok == null) {
-            dispose();
-        } else {
+        
+        if (actionok != null) {
             ActionEvent okevent = new ActionEvent();
             actionok.accept(okevent);
-            if (!okevent.isConsumed()) {
-                dispose();
+            if (okevent.isConsumed()) {
+                return;
             }
-        }        
+        }
+        
+        dispose();        
     }
     
     @FXML void onClose(ActionEvent event) {
