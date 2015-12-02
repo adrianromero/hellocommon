@@ -51,13 +51,13 @@ public class DialogView extends StackPane implements AbstractController {
     
     public DialogView() {
         load("/com/adr/hellocommon/fxml/dialogview.fxml", "com/adr/hellocommon/fxml/dialogview");
-        setBackground(new Background(new BackgroundFill(Color.gray(0.5, 0.75), CornerRadii.EMPTY, Insets.EMPTY)));
-        header.setVisible(false);
     }
     
     @FXML
     public void initialize() {
+        setBackground(new Background(new BackgroundFill(Color.gray(0.5, 0.75), CornerRadii.EMPTY, Insets.EMPTY)));
         closebutton.setGraphic(IconBuilder.create(FontAwesome.FA_CLOSE).color(Color.BLACK).build());
+        header.setVisible(false);        
     }    
     
     public void setTitle(String title) {
