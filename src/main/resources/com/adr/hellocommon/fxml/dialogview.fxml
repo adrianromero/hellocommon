@@ -5,7 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root prefHeight="400.0" prefWidth="600.0" stylesheets="@../style/dialog.css" type="StackPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="400.0" prefWidth="600.0" stylesheets="@../style/dialog.css" type="StackPane" xmlns="http://javafx.com/javafx/8.0.66" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <BorderPane fx:id="bodydialog" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="350.0" styleClass="bodydialog">
          <top>
@@ -29,7 +29,7 @@
             <StackPane fx:id="nodecontent" styleClass="content" BorderPane.alignment="CENTER" />
          </center>
          <bottom>
-            <ButtonBar fx:id="nodebuttons" prefHeight="40.0" prefWidth="200.0" styleClass="buttonlist" BorderPane.alignment="CENTER">
+            <ButtonBar fx:id="nodebuttons" styleClass="buttonlist" BorderPane.alignment="CENTER">
             </ButtonBar>
          </bottom>         
       </BorderPane>

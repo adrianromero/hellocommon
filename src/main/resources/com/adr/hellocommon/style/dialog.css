@@ -29,7 +29,7 @@
 .title {
  
     -fx-background-color: -fx-box-border, white;
-    -fx-background-insets: 0,0 0 1 0;
+    -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 5 10 5 10;
 }
 
@@ -42,5 +42,5 @@
 }
 
 .buttonlist {
-    -fx-padding: 0 10 0 10;    
+    -fx-padding: 10 10 10 10;    
 }
