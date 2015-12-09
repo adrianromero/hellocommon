@@ -18,20 +18,9 @@
                </left>
             </BorderPane>
          </top>
-         <left>
-            <Label fx:id="nodeindicator" styleClass="indicator" BorderPane.alignment="TOP_CENTER">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </Label>
-         </left>
          <center>
             <StackPane fx:id="nodecontent" styleClass="content" BorderPane.alignment="CENTER" />
-         </center>
-         <bottom>
-            <ButtonBar fx:id="nodebuttons" styleClass="buttonlist" BorderPane.alignment="CENTER">
-            </ButtonBar>
-         </bottom>         
+         </center>    
       </BorderPane>
    </children>
 </fx:root>

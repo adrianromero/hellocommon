@@ -16,6 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
@@ -42,8 +43,9 @@ public class DialogView extends StackPane implements AbstractController {
     @FXML private Button closebutton;
     @FXML private Label nodetitle;
     @FXML private StackPane nodecontent;
-    @FXML private Label nodeindicator;
-    @FXML private ButtonBar nodebuttons;
+    
+    private ButtonBar nodebuttons = null;
+    private Label nodeindicator = null;    
     
     private Consumer<ActionEvent> actionok = null;    
     private Consumer<ActionEvent> actiondispose = null;    
@@ -78,6 +80,13 @@ public class DialogView extends StackPane implements AbstractController {
     }
     
     public void setIndicator(Node indicator) {
+        
+        if (nodeindicator == null) {
+            nodeindicator = new Label();
+            nodeindicator.getStyleClass().add("indicator");
+            BorderPane.setAlignment(nodeindicator, Pos.TOP_CENTER);
+            bodydialog.setLeft(nodeindicator);
+        }
         nodeindicator.setGraphic(indicator);
     }
     
@@ -90,6 +99,13 @@ public class DialogView extends StackPane implements AbstractController {
     }
     
     public void addButtons(Button... buttons) {
+        
+        if (nodebuttons == null) {
+            nodebuttons = new ButtonBar();
+            nodebuttons.getStyleClass().add("buttonlist");
+            BorderPane.setAlignment(nodebuttons, Pos.CENTER);
+            bodydialog.setBottom(nodebuttons);            
+        }
         nodebuttons.getButtons().addAll(buttons);
     }
     

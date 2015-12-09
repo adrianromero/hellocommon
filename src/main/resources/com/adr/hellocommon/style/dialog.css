@@ -34,11 +34,11 @@
 }
 
 .content {
-    -fx-padding: 15 15 15 0;    
+    -fx-padding: 15 15 15 15;    
 }
 
 .indicator {
-    -fx-padding: 15 15 15 15;        
+    -fx-padding: 15 0 15 15;        
 }
 
 .buttonlist {
