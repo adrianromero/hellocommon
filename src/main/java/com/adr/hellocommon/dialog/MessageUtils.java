@@ -114,4 +114,15 @@ public class MessageUtils {
             return null;
         }         
     }
+    
+    public static void disposeAllDialogs(StackPane parent) {
+        
+        if (parent.getChildren().size() > 0) {
+            Node n = parent.getChildren().get(parent.getChildren().size() - 1);
+            if (n instanceof DialogView) {
+                ((DialogView) n).dispose();
+                disposeAllDialogs(parent);
+            }
+        }
+    }
 }
