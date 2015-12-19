@@ -10,10 +10,8 @@ import com.adr.fonticon.decorator.FillPaint;
 import com.adr.fonticon.decorator.Shine;
 import java.util.function.Consumer;
 import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
@@ -80,6 +78,15 @@ public class MessageUtils {
         dialog.show(parent);      
     } 
     
+    public static void showInfo(StackPane parent, String title, String message) {
+        DialogView dialog = new DialogView();
+        dialog.setTitle(title);
+        dialog.setMessage(message);
+        dialog.setIndicator(IconBuilder.create(FontAwesome.FA_INFO_CIRCLE, 48.0).apply(new FillPaint(Color.web("#9999FF"))).apply(new Shine(Color.BLUE)).build());
+        dialog.addButtons(dialog.createOKButton());        
+        dialog.show(parent);      
+    } 
+        
     public static DialogView showSystemMessage(StackPane parent, String message) {
         DialogView dialog = new DialogView();
         dialog.setMessage(message);
