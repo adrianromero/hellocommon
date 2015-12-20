@@ -161,9 +161,6 @@ public class DialogView extends StackPane implements AbstractController {
         }
         
         ObservableList<Node> children = parent.getChildren();
-        if (children.isEmpty() || children.get(children.size() - 1) != this) {
-            throw new RuntimeException("Cannot dispose a DialogView that is not the last node in an Stack Pane.");
-        }
         children.remove(this);
         if (!children.isEmpty()) {
             children.get(children.size() - 1).setDisable(false);
