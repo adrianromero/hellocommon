@@ -1,5 +1,4 @@
 apply plugin: 'java'
-apply plugin: 'maven'
 
 group = 'com.adr'
 version = '1.0-SNAPSHOT'
@@ -14,8 +13,9 @@ repositories {
     mavenLocal()
     mavenCentral()
     jcenter()
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-    compile group: 'com.adr', name: 'fonticon', version:'1.0-SNAPSHOT'
+    compile group: 'com.github.adrianromero', name: 'fonticon', version:'master-SNAPSHOT'    
 }
