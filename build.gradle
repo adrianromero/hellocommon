@@ -1,7 +1,8 @@
 apply plugin: 'java'
+apply plugin: 'maven'
 
 group = 'com.adr'
-version = '1.0-SNAPSHOT'
+version = '1.2.0'
 
 description = """"""
 
@@ -10,12 +11,34 @@ targetCompatibility = '1.8'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 repositories {
-    mavenLocal()
     mavenCentral()
     jcenter()
     maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-    compile group: 'com.github.adrianromero', name: 'fonticon', version:'master-SNAPSHOT'    
+    compile group: 'com.github.adrianromero', name: 'fonticon', version:'1.2.0'    
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+install {
+  repositories.mavenInstaller {
+    pom.project {
+      licenses {
+        license {
+          name 'The Apache Software License, Version 2.0'
+          url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+          distribution 'repo'
+        }
+      }
+    }
+  }
 }

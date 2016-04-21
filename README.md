@@ -3,6 +3,22 @@ HelloCommon [![Release](https://jitpack.io/v/adrianromero/hellocommon.svg)](http
 
 HelloCommon is a JavaFX library for displaying internal dialogs
 
+
+Install
+=======
+
+To install the library add: 
+ 
+   ```gradle
+   repositories { 
+        jcenter()
+        maven { url "https://jitpack.io" }
+   }
+   dependencies {
+         compile 'com.github.adrianromero:hellocommon:1.2.0'
+   }
+   ```  
+
 License
 =======
 
