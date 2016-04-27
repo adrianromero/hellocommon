@@ -177,6 +177,10 @@ public class DialogView extends StackPane implements AbstractController {
         parent = null;            
     }
     
+    public boolean isShowing() {
+        return parent != null;
+    }
+    
     public void doOK() {
         
         if (actionok != null) {
