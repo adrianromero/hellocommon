@@ -126,7 +126,7 @@ public class MessageUtils {
         
         if (parent.getChildren().size() > 0) {
             Node n = parent.getChildren().get(parent.getChildren().size() - 1);
-            if (n instanceof DialogView) {
+            if (n instanceof DialogView && !((DialogView) n).isMaster()) {
                 ((DialogView) n).dispose();
                 disposeAllDialogs(parent);
             }

@@ -45,7 +45,8 @@ public class DialogView extends StackPane implements AbstractController {
     @FXML private StackPane nodecontent;
     
     private ButtonBar nodebuttons = null;
-    private Label nodeindicator = null;    
+    private Label nodeindicator = null;
+    private boolean master = false;
     
     private Consumer<ActionEvent> actionok = null;    
     private Consumer<ActionEvent> actiondispose = null;    
@@ -96,6 +97,14 @@ public class DialogView extends StackPane implements AbstractController {
     
     public void setActionDispose(Consumer<ActionEvent> actiondispose) {
         this.actiondispose = actiondispose;
+    }
+
+    public boolean isMaster() {
+        return master;
+    }
+
+    public void setMaster(boolean master) {
+        this.master = master;
     }
     
     public void addButtons(Button... buttons) {
