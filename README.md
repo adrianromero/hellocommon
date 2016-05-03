@@ -15,7 +15,7 @@ To install the library add:
         maven { url "https://jitpack.io" }
    }
    dependencies {
-         compile 'com.github.adrianromero:hellocommon:1.2.1'
+         compile 'com.github.adrianromero:hellocommon:1.2.3'
    }
    ```  
 
