@@ -67,6 +67,16 @@ public class MessageUtils {
         dialog.setIndicator(IconBuilder.create(FontAwesome.FA_TIMES_CIRCLE, 48.0).apply(new FillPaint(Color.web("#FF9999"))).apply(new Shine(Color.RED)).build());
         dialog.addButtons(dialog.createOKButton());
         dialog.show(parent);         
+    }  
+    
+    public static void showError(StackPane parent, String title, String message, Consumer<ActionEvent> actiondispose) {
+        DialogView dialog = new DialogView();
+        dialog.setTitle(title);
+        dialog.setMessage(message);
+        dialog.setIndicator(IconBuilder.create(FontAwesome.FA_TIMES_CIRCLE, 48.0).apply(new FillPaint(Color.web("#FF9999"))).apply(new Shine(Color.RED)).build());
+        dialog.addButtons(dialog.createOKButton());
+        dialog.setActionDispose(actiondispose);
+        dialog.show(parent);         
     }   
     
     public static void showWarning(StackPane parent, String title, String message) {
@@ -78,12 +88,32 @@ public class MessageUtils {
         dialog.show(parent);      
     } 
     
+    public static void showWarning(StackPane parent, String title, String message, Consumer<ActionEvent> actiondispose) {
+        DialogView dialog = new DialogView();
+        dialog.setTitle(title);
+        dialog.setMessage(message);
+        dialog.setIndicator(IconBuilder.create(FontAwesome.FA_WARNING, 48.0).apply(new FillPaint(Color.web("#FFFF99"))).apply(new Shine(Color.YELLOW)).build());
+        dialog.addButtons(dialog.createOKButton());    
+        dialog.setActionDispose(actiondispose);
+        dialog.show(parent);      
+    } 
+    
     public static void showInfo(StackPane parent, String title, String message) {
         DialogView dialog = new DialogView();
         dialog.setTitle(title);
         dialog.setMessage(message);
         dialog.setIndicator(IconBuilder.create(FontAwesome.FA_INFO_CIRCLE, 48.0).apply(new FillPaint(Color.web("#9999FF"))).apply(new Shine(Color.BLUE)).build());
         dialog.addButtons(dialog.createOKButton());        
+        dialog.show(parent);      
+    } 
+    
+    public static void showInfo(StackPane parent, String title, String message, Consumer<ActionEvent> actiondispose) {
+        DialogView dialog = new DialogView();
+        dialog.setTitle(title);
+        dialog.setMessage(message);
+        dialog.setIndicator(IconBuilder.create(FontAwesome.FA_INFO_CIRCLE, 48.0).apply(new FillPaint(Color.web("#9999FF"))).apply(new Shine(Color.BLUE)).build());
+        dialog.addButtons(dialog.createOKButton());  
+        dialog.setActionDispose(actiondispose);
         dialog.show(parent);      
     } 
         
