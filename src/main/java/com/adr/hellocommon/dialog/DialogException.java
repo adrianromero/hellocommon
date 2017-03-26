@@ -1,12 +1,12 @@
 //    HelloCommon are basic JavaFX utilities
-//    Copyright (C) 2015 Adrián Romero Corchado.
+//    Copyright (C) 2015-2017 Adrián Romero Corchado.
 //    All Rights reserved..
 
 package com.adr.hellocommon.dialog;
 
 import com.adr.fonticon.FontAwesome;
 import com.adr.fonticon.IconBuilder;
-import com.adr.hellocommon.utils.AbstractController;
+import com.adr.hellocommon.utils.FXMLUtil;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URL;
@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
@@ -24,21 +25,26 @@ import javafx.scene.layout.BorderPane;
  *
  * @author adrian
  */
-public class DialogException extends BorderPane implements AbstractController  {
+public class DialogException  {
 
     private final static Logger logger = Logger.getLogger(DialogException.class.getName());
 
     @FXML private URL url;
     @FXML private ResourceBundle resources;    
+    @FXML private BorderPane rootpane;
     @FXML private Label textmessage;
     @FXML private TextArea textexception;
     
     public DialogException() {
-        load("/com/adr/hellocommon/fxml/dialogexception.fxml", "com/adr/hellocommon/fxml/dialogexception");
+        FXMLUtil.load(this, "/com/adr/hellocommon/fxml/dialogexception.fxml", "com/adr/hellocommon/fxml/dialogexception");
     }  
     
     @FXML
     public void initialize() {
+    }
+    
+    public Node getNode() {
+        return rootpane;
     }
     
     public void setMessage(String message) {

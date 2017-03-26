@@ -1,5 +1,5 @@
 //    HelloCommon are basic JavaFX utilities
-//    Copyright (C) 2015 Adrián Romero Corchado.
+//    Copyright (C) 2015-2017 Adrián Romero Corchado.
 //    All Rights reserved.
 
 package com.adr.hellocommon.utils;
@@ -12,28 +12,26 @@ import javafx.fxml.FXMLLoader;
  *
  * @author adrian
  */
-public interface AbstractController {
+public class FXMLUtil {
     
-    public default void load(String fxml) {  
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-        loader.setController(this);
-        loader.setRoot(this);
+    public static final <T> T load(Object controller, String fxml) {  
+        FXMLLoader loader = new FXMLLoader(controller.getClass().getResource(fxml));
+        loader.setController(controller);
         
         try {
-            loader.load();
+            return loader.load();
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         } 
     }   
     
-    public default void load(String fxml, String resources) {        
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+    public static final <T> T load(Object controller, String fxml, String resources) {        
+        FXMLLoader loader = new FXMLLoader(controller.getClass().getResource(fxml));
         loader.setResources(ResourceBundle.getBundle(resources));
-        loader.setController(this);
-        loader.setRoot(this);
+        loader.setController(controller);
         
         try {
-            loader.load();
+            return loader.load();
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }      

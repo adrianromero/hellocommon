@@ -1,12 +1,12 @@
 //    HelloCommon are basic JavaFX utilities
-//    Copyright (C) 2015 Adrián Romero Corchado.
+//    Copyright (C) 2015-2017 Adrián Romero Corchado.
 //    All Rights reserved.
 
 package com.adr.hellocommon.dialog;
 
 import com.adr.fonticon.FontAwesome;
 import com.adr.fonticon.IconBuilder;
-import com.adr.hellocommon.utils.AbstractController;
+import com.adr.hellocommon.utils.FXMLUtil;
 import com.adr.hellocommon.utils.ShowAnimation;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -32,12 +32,14 @@ import javafx.scene.paint.Color;
  *
  * @author adrian
  */
-public class DialogView extends StackPane implements AbstractController {
+public class DialogView {
 
     private final static Logger logger = Logger.getLogger(DialogView.class.getName());
 
     @FXML private URL url;
     @FXML private ResourceBundle resources;  
+    
+    @FXML private StackPane rootpane;
     @FXML private BorderPane header;
     @FXML private BorderPane bodydialog;
     @FXML private Button closebutton;
@@ -53,15 +55,26 @@ public class DialogView extends StackPane implements AbstractController {
     private StackPane parent;
     
     public DialogView() {
-        load("/com/adr/hellocommon/fxml/dialogview.fxml", "com/adr/hellocommon/fxml/dialogview");
+        FXMLUtil.load(this, "/com/adr/hellocommon/fxml/dialogview.fxml", "com/adr/hellocommon/fxml/dialogview");
     }
     
     @FXML
     public void initialize() {
-        setBackground(new Background(new BackgroundFill(Color.gray(0.5, 0.75), CornerRadii.EMPTY, Insets.EMPTY)));
+        rootpane.getProperties().put("DIALOG_VIEW", this);
+        rootpane.setBackground(new Background(new BackgroundFill(Color.gray(0.5, 0.75), CornerRadii.EMPTY, Insets.EMPTY)));
         closebutton.setGraphic(IconBuilder.create(FontAwesome.FA_CLOSE).color(Color.BLACK).build());
         header.setVisible(false);        
     }    
+    
+    public Node getNode() {
+        return rootpane;
+    }
+    
+    public void setCSS(String css) {
+        if (css != null) {
+            rootpane.getStylesheets().add(getClass().getResource(css).toExternalForm());
+        }
+    }
     
     public void setTitle(String title) {
         header.setVisible(true);
@@ -84,7 +97,7 @@ public class DialogView extends StackPane implements AbstractController {
         
         if (nodeindicator == null) {
             nodeindicator = new Label();
-            nodeindicator.getStyleClass().add("indicator");
+            nodeindicator.getStyleClass().add("dialog-indicator");
             BorderPane.setAlignment(nodeindicator, Pos.TOP_CENTER);
             bodydialog.setLeft(nodeindicator);
         }
@@ -111,7 +124,7 @@ public class DialogView extends StackPane implements AbstractController {
         
         if (nodebuttons == null) {
             nodebuttons = new ButtonBar();
-            nodebuttons.getStyleClass().add("buttonlist");
+            nodebuttons.getStyleClass().add("dialog-buttonlist");
             BorderPane.setAlignment(nodebuttons, Pos.CENTER);
             bodydialog.setBottom(nodebuttons);            
         }
@@ -153,9 +166,9 @@ public class DialogView extends StackPane implements AbstractController {
         if (!children.isEmpty()) {
             children.get(children.size() - 1).setDisable(true);
         }
-        parent.getChildren().add(this);
+        parent.getChildren().add(rootpane);
         
-        ShowAnimation.createAnimationFade(this).playFromStart();
+        ShowAnimation.createAnimationFade(rootpane).playFromStart();
         ShowAnimation.createAnimationCurtain(bodydialog).playFromStart();
     }
     
@@ -170,7 +183,7 @@ public class DialogView extends StackPane implements AbstractController {
         }
         
         ObservableList<Node> children = parent.getChildren();
-        children.remove(this);
+        children.remove(rootpane);
         if (!children.isEmpty()) {
             children.get(children.size() - 1).setDisable(false);
         }

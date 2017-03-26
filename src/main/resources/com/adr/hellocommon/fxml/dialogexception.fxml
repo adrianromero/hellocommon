@@ -5,7 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" type="BorderPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="rootpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <Label fx:id="textmessage" text="Label" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -16,4 +16,4 @@
    <center>
       <TextArea fx:id="textexception" editable="false" minHeight="0.0" prefHeight="200.0" prefWidth="400.0" BorderPane.alignment="CENTER" />
    </center>
-</fx:root>
+</BorderPane>

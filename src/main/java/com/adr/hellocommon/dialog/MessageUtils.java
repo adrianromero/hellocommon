@@ -1,5 +1,5 @@
 //    HelloCommon are basic JavaFX utilities
-//    Copyright (C) 2015 Adrián Romero Corchado.
+//    Copyright (C) 2015-2017 Adrián Romero Corchado.
 //    All Rights reserved.
 
 package com.adr.hellocommon.dialog;
@@ -21,16 +21,23 @@ import javafx.scene.paint.Color;
  */
 public class MessageUtils {
     
+    private static String defaultcss = null;
+    
     private MessageUtils() {
+    }
+    
+    public static void useDefaultCSS() {
+        defaultcss = "/com.adr/hellocommon/style/dialog.css";
     }
     
     public static void showException(StackPane parent, String title, String message, Throwable t) {
         DialogView dialog = new DialogView();
+        dialog.setCSS(defaultcss);
         dialog.setTitle(title);
         DialogException contentex = new DialogException();
         contentex.setMessage(message);
         contentex.setException(t);   
-        dialog.setContent(contentex);     
+        dialog.setContent(contentex.getNode());     
         dialog.setIndicator(IconBuilder.create(FontAwesome.FA_TIMES_CIRCLE, 48.0).apply(new FillPaint(Color.web("#FF9999"))).apply(new Shine(Color.RED)).build());
         dialog.addButtons(contentex.createButtonDetails(), dialog.createOKButton());
         dialog.show(parent);           
@@ -42,6 +49,7 @@ public class MessageUtils {
     
     public static void showConfirm(StackPane parent, String title, String message, Consumer<ActionEvent> actionok) {
         DialogView dialog = new DialogView();
+        dialog.setCSS(defaultcss);
         dialog.setTitle(title);
         dialog.setMessage(message);
         dialog.setIndicator(IconBuilder.create(FontAwesome.FA_QUESTION_CIRCLE, 48.0).apply(new FillPaint(Color.web("#9999FF"))).apply(new Shine(Color.BLUE)).build());
@@ -52,6 +60,7 @@ public class MessageUtils {
     
     public static void showConfirm(StackPane parent, String title, Node content, Consumer<ActionEvent> actionok, Button... moreactions) {
         DialogView dialog = new DialogView();
+        dialog.setCSS(defaultcss);
         dialog.setTitle(title);
         dialog.setContent(content);
         dialog.setActionOK(actionok);
@@ -62,6 +71,7 @@ public class MessageUtils {
     
     public static void showError(StackPane parent, String title, String message) {
         DialogView dialog = new DialogView();
+        dialog.setCSS(defaultcss);
         dialog.setTitle(title);
         dialog.setMessage(message);
         dialog.setIndicator(IconBuilder.create(FontAwesome.FA_TIMES_CIRCLE, 48.0).apply(new FillPaint(Color.web("#FF9999"))).apply(new Shine(Color.RED)).build());
@@ -71,6 +81,7 @@ public class MessageUtils {
     
     public static void showError(StackPane parent, String title, String message, Consumer<ActionEvent> actiondispose) {
         DialogView dialog = new DialogView();
+        dialog.setCSS(defaultcss);
         dialog.setTitle(title);
         dialog.setMessage(message);
         dialog.setIndicator(IconBuilder.create(FontAwesome.FA_TIMES_CIRCLE, 48.0).apply(new FillPaint(Color.web("#FF9999"))).apply(new Shine(Color.RED)).build());
@@ -81,6 +92,7 @@ public class MessageUtils {
     
     public static void showWarning(StackPane parent, String title, String message) {
         DialogView dialog = new DialogView();
+        dialog.setCSS(defaultcss);
         dialog.setTitle(title);
         dialog.setMessage(message);
         dialog.setIndicator(IconBuilder.create(FontAwesome.FA_WARNING, 48.0).apply(new FillPaint(Color.web("#FFFF99"))).apply(new Shine(Color.YELLOW)).build());
@@ -90,6 +102,7 @@ public class MessageUtils {
     
     public static void showWarning(StackPane parent, String title, String message, Consumer<ActionEvent> actiondispose) {
         DialogView dialog = new DialogView();
+        dialog.setCSS(defaultcss);
         dialog.setTitle(title);
         dialog.setMessage(message);
         dialog.setIndicator(IconBuilder.create(FontAwesome.FA_WARNING, 48.0).apply(new FillPaint(Color.web("#FFFF99"))).apply(new Shine(Color.YELLOW)).build());
@@ -100,6 +113,7 @@ public class MessageUtils {
     
     public static void showInfo(StackPane parent, String title, String message) {
         DialogView dialog = new DialogView();
+        dialog.setCSS(defaultcss);
         dialog.setTitle(title);
         dialog.setMessage(message);
         dialog.setIndicator(IconBuilder.create(FontAwesome.FA_INFO_CIRCLE, 48.0).apply(new FillPaint(Color.web("#9999FF"))).apply(new Shine(Color.BLUE)).build());
@@ -109,6 +123,7 @@ public class MessageUtils {
     
     public static void showInfo(StackPane parent, String title, String message, Consumer<ActionEvent> actiondispose) {
         DialogView dialog = new DialogView();
+        dialog.setCSS(defaultcss);
         dialog.setTitle(title);
         dialog.setMessage(message);
         dialog.setIndicator(IconBuilder.create(FontAwesome.FA_INFO_CIRCLE, 48.0).apply(new FillPaint(Color.web("#9999FF"))).apply(new Shine(Color.BLUE)).build());
@@ -119,6 +134,7 @@ public class MessageUtils {
         
     public static DialogView showSystemMessage(StackPane parent, String message) {
         DialogView dialog = new DialogView();
+        dialog.setCSS(defaultcss);
         dialog.setMessage(message);
         dialog.show(parent);  
         return dialog;
@@ -156,8 +172,9 @@ public class MessageUtils {
         
         if (parent.getChildren().size() > 0) {
             Node n = parent.getChildren().get(parent.getChildren().size() - 1);
-            if (n instanceof DialogView && !((DialogView) n).isMaster()) {
-                ((DialogView) n).dispose();
+            DialogView dialog = (DialogView) n.getProperties().get("DIALOG_VIEW");
+            if (dialog != null && !dialog.isMaster()) {
+                dialog.dispose();
                 disposeAllDialogs(parent);
             }
         }
