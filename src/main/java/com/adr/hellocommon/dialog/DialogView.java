@@ -62,7 +62,7 @@ public class DialogView {
     public void initialize() {
         rootpane.getProperties().put("DIALOG_VIEW", this);
         rootpane.setBackground(new Background(new BackgroundFill(Color.gray(0.5, 0.75), CornerRadii.EMPTY, Insets.EMPTY)));
-        closebutton.setGraphic(IconBuilder.create(FontAwesome.FA_CLOSE).color(Color.BLACK).build());
+        closebutton.setGraphic(IconBuilder.create(FontAwesome.FA_CLOSE).styleClass("dialog-close-icon").build());
         header.setVisible(false);        
     }    
     
@@ -131,7 +131,7 @@ public class DialogView {
         nodebuttons.getButtons().addAll(buttons);
     }
     
-    public Button createCloselButton() {
+    public Button createCloseButton() {
         Button cancel = new Button (resources.getString("button.Close"));
         cancel.setOnAction((ActionEvent event) -> {
             dispose();

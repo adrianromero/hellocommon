@@ -58,7 +58,7 @@ public class DialogException  {
     }
     
     public Button createButtonDetails() {
-        Button b = new Button();
+        Button b = new Button(resources.getString("button.details"));
         b.setOnAction((ActionEvent event) ->  {
             if (textexception.isVisible()) {
                 hideDetails(b);
@@ -73,15 +73,13 @@ public class DialogException  {
     
     private void showDetails(Button b) {
         textexception.setVisible(true);
-        textexception.setPrefHeight(200.0);        
-        b.setText(resources.getString("button.hidedetails"));
-        b.setGraphic(IconBuilder.create(FontAwesome.FA_CHEVRON_CIRCLE_UP).build());               
+        textexception.setPrefSize(400.0, 200.0);        
+        b.setGraphic(IconBuilder.create(FontAwesome.FA_MINUS).build());               
     }
     
     private void hideDetails(Button b) {
         textexception.setVisible(false);
-        textexception.setPrefHeight(0.0);        
-        b.setText(resources.getString("button.showdetails"));
-        b.setGraphic(IconBuilder.create(FontAwesome.FA_CHEVRON_CIRCLE_DOWN).build());          
+        textexception.setPrefSize(0.0, 0.0);        
+        b.setGraphic(IconBuilder.create(FontAwesome.FA_PLUS).build());          
     }
 }

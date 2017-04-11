@@ -5,9 +5,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane fx:id="rootpane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.66" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:id="rootpane" xmlns="http://javafx.com/javafx/8.0.66" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <BorderPane fx:id="bodydialog" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="350.0" styleClass="dialog-body">
+      <BorderPane fx:id="bodydialog" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="dialog-body">
          <top>
             <BorderPane fx:id="header" styleClass="dialog-title" BorderPane.alignment="CENTER">
                <right>
