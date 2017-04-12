@@ -74,12 +74,12 @@ public class DialogException  {
     private void showDetails(Button b) {
         textexception.setVisible(true);
         textexception.setPrefSize(400.0, 200.0);        
-        b.setGraphic(IconBuilder.create(FontAwesome.FA_MINUS).build());               
+        b.setGraphic(IconBuilder.create(FontAwesome.FA_MINUS).styleClass("dialog-button-icon").build());               
     }
     
     private void hideDetails(Button b) {
         textexception.setVisible(false);
         textexception.setPrefSize(0.0, 0.0);        
-        b.setGraphic(IconBuilder.create(FontAwesome.FA_PLUS).build());          
+        b.setGraphic(IconBuilder.create(FontAwesome.FA_PLUS).styleClass("dialog-button-icon").build());          
     }
 }
