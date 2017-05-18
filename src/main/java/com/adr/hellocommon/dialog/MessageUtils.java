@@ -30,7 +30,7 @@ public class MessageUtils {
         defaultcss = "/com.adr/hellocommon/style/dialog.css";
     }
     
-    public static void showException(StackPane parent, String title, String message, Throwable t) {
+    public static void showException(StackPane parent, String title, String message, Throwable t, Consumer<ActionEvent> actiondispose) {
         DialogView dialog = new DialogView();
         dialog.setCSS(defaultcss);
         dialog.setTitle(title);
@@ -39,12 +39,21 @@ public class MessageUtils {
         contentex.setException(t);   
         dialog.setContent(contentex.getNode());     
         dialog.setIndicator(IconBuilder.create(FontAwesome.FA_TIMES_CIRCLE, 48.0).apply(new FillPaint(Color.web("#FF9999"))).apply(new Shine(Color.RED)).build());
+        dialog.setActionDispose(actiondispose);
         dialog.addButtons(contentex.createButtonDetails(), dialog.createOKButton());
         dialog.show(parent);           
     }
     
+    public static void showException(StackPane parent, String title, String message, Throwable t) {
+        showException(parent, title, message, t, null);       
+    }
+    
+    public static void showException(StackPane parent, String title, Throwable t, Consumer<ActionEvent> actiondispose) {
+        showException(parent, title, t.getLocalizedMessage(), t, actiondispose);         
+    }
+    
     public static void showException(StackPane parent, String title, Throwable t) {
-        showException(parent, title, t.getLocalizedMessage(), t);         
+        showException(parent, title, t.getLocalizedMessage(), t, null);         
     }
     
     public static void showConfirm(StackPane parent, String title, String message, Consumer<ActionEvent> actionok) {
@@ -68,17 +77,7 @@ public class MessageUtils {
         dialog.addButtons(dialog.createCancelButton(), dialog.createOKButton());
         dialog.show(parent);           
     }  
-    
-    public static void showError(StackPane parent, String title, String message) {
-        DialogView dialog = new DialogView();
-        dialog.setCSS(defaultcss);
-        dialog.setTitle(title);
-        dialog.setMessage(message);
-        dialog.setIndicator(IconBuilder.create(FontAwesome.FA_TIMES_CIRCLE, 48.0).apply(new FillPaint(Color.web("#FF9999"))).apply(new Shine(Color.RED)).build());
-        dialog.addButtons(dialog.createOKButton());
-        dialog.show(parent);         
-    }  
-    
+       
     public static void showError(StackPane parent, String title, String message, Consumer<ActionEvent> actiondispose) {
         DialogView dialog = new DialogView();
         dialog.setCSS(defaultcss);
@@ -90,15 +89,9 @@ public class MessageUtils {
         dialog.show(parent);         
     }   
     
-    public static void showWarning(StackPane parent, String title, String message) {
-        DialogView dialog = new DialogView();
-        dialog.setCSS(defaultcss);
-        dialog.setTitle(title);
-        dialog.setMessage(message);
-        dialog.setIndicator(IconBuilder.create(FontAwesome.FA_WARNING, 48.0).apply(new FillPaint(Color.web("#FFFF99"))).apply(new Shine(Color.YELLOW)).build());
-        dialog.addButtons(dialog.createOKButton());        
-        dialog.show(parent);      
-    } 
+    public static void showError(StackPane parent, String title, String message) {
+        showError(parent, title, message, null);       
+    }     
     
     public static void showWarning(StackPane parent, String title, String message, Consumer<ActionEvent> actiondispose) {
         DialogView dialog = new DialogView();
@@ -111,14 +104,8 @@ public class MessageUtils {
         dialog.show(parent);      
     } 
     
-    public static void showInfo(StackPane parent, String title, String message) {
-        DialogView dialog = new DialogView();
-        dialog.setCSS(defaultcss);
-        dialog.setTitle(title);
-        dialog.setMessage(message);
-        dialog.setIndicator(IconBuilder.create(FontAwesome.FA_INFO_CIRCLE, 48.0).apply(new FillPaint(Color.web("#9999FF"))).apply(new Shine(Color.BLUE)).build());
-        dialog.addButtons(dialog.createOKButton());        
-        dialog.show(parent);      
+    public static void showWarning(StackPane parent, String title, String message) {
+        showWarning(parent, title, message, null);    
     } 
     
     public static void showInfo(StackPane parent, String title, String message, Consumer<ActionEvent> actiondispose) {
@@ -131,7 +118,11 @@ public class MessageUtils {
         dialog.setActionDispose(actiondispose);
         dialog.show(parent);      
     } 
-        
+    
+    public static void showInfo(StackPane parent, String title, String message) {
+        showInfo(parent, title, message, null);    
+    } 
+    
     public static DialogView showSystemMessage(StackPane parent, String message) {
         DialogView dialog = new DialogView();
         dialog.setCSS(defaultcss);

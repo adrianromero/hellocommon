@@ -15,18 +15,13 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 
 /**
  *
@@ -61,7 +56,7 @@ public class DialogView {
     @FXML
     public void initialize() {
         rootpane.getProperties().put("DIALOG_VIEW", this);
-        rootpane.setBackground(new Background(new BackgroundFill(Color.gray(0.5, 0.75), CornerRadii.EMPTY, Insets.EMPTY)));
+//        rootpane.setBackground(new Background(new BackgroundFill(Color.gray(0.5, 0.75), CornerRadii.EMPTY, Insets.EMPTY)));
         closebutton.setGraphic(IconBuilder.create(FontAwesome.FA_CLOSE).styleClass("dialog-close-icon").build());
         header.setVisible(false);        
     }    
