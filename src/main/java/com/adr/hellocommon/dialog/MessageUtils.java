@@ -27,7 +27,7 @@ public class MessageUtils {
     }
     
     public static void useDefaultCSS() {
-        defaultcss = "/com.adr/hellocommon/style/dialog.css";
+        defaultcss = "/com/adr/hellocommon/style/dialog.css";
     }
     
     public static void showException(StackPane parent, String title, String message, Throwable t, Consumer<ActionEvent> actiondispose) {
