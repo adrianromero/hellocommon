@@ -1,5 +1,5 @@
 //    HelloCommon are basic JavaFX utilities
-//    Copyright (C) 2015-2017 Adrián Romero Corchado.
+//    Copyright (C) 2015-2018 Adrián Romero Corchado.
 //    All Rights reserved.
 
 package com.adr.hellocommon.dialog;
@@ -81,9 +81,11 @@ public class DialogView {
     }
     
     public void setMessage(String message) {
-        nodecontent.getChildren().add(new Label(message));
+        Label lbl = new Label(message);
+        lbl.setWrapText(true);
+        nodecontent.getChildren().add(lbl);
     }
-    
+
     public void setContent(Node node) {
         nodecontent.getChildren().add(node);       
     }
