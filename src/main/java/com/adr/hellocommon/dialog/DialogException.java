@@ -1,19 +1,18 @@
 //    HelloCommon are basic JavaFX utilities
-//    Copyright (C) 2015-2017 Adrián Romero Corchado.
+//    Copyright (C) 2015-2018 Adrián Romero Corchado.
 //    All Rights reserved..
 
 package com.adr.hellocommon.dialog;
 
 import com.adr.fonticon.FontAwesome;
 import com.adr.fonticon.IconBuilder;
-import com.adr.hellocommon.utils.FXMLUtil;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
@@ -29,19 +28,33 @@ public class DialogException  {
 
     private final static Logger logger = Logger.getLogger(DialogException.class.getName());
 
-    @FXML private URL url;
-    @FXML private ResourceBundle resources;    
-    @FXML private BorderPane rootpane;
-    @FXML private Label textmessage;
-    @FXML private TextArea textexception;
+    private ResourceBundle resources;    
+    private BorderPane rootpane;
+    private Label textmessage;
+    private TextArea textexception;
     
     public DialogException() {
-        FXMLUtil.load(this, "/com/adr/hellocommon/fxml/dialogexception.fxml", "com/adr/hellocommon/fxml/dialogexception");
+        resources = ResourceBundle.getBundle("com/adr/hellocommon/fxml/dialogexception");
+        
+        rootpane = new BorderPane();
+        
+        textmessage = new Label();
+        textmessage.setWrapText(true);
+        BorderPane.setAlignment(textmessage, Pos.CENTER);
+        BorderPane.setMargin(textmessage, new Insets(0.0, 0.0, 10.0, 0.0));
+        
+        rootpane.setTop(textmessage);
+        
+        textexception = new TextArea();
+        textexception.setEditable(false);
+        textexception.setMinHeight(0.0);
+        textexception.setPrefSize(400.0, 200.0);
+        BorderPane.setAlignment(textexception, Pos.CENTER);
+        
+        rootpane.setCenter(textexception);
+        
+        // initialize();
     }  
-    
-    @FXML
-    public void initialize() {
-    }
     
     public Node getNode() {
         return rootpane;

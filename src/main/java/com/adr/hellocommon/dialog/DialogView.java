@@ -6,21 +6,20 @@ package com.adr.hellocommon.dialog;
 
 import com.adr.fonticon.FontAwesome;
 import com.adr.fonticon.IconBuilder;
-import com.adr.hellocommon.utils.FXMLUtil;
 import com.adr.hellocommon.utils.ShowAnimation;
-import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
 /**
@@ -31,15 +30,14 @@ public class DialogView {
 
     private final static Logger logger = Logger.getLogger(DialogView.class.getName());
 
-    @FXML private URL url;
-    @FXML private ResourceBundle resources;  
+    private ResourceBundle resources;  
     
-    @FXML private StackPane rootpane;
-    @FXML private BorderPane header;
-    @FXML private BorderPane bodydialog;
-    @FXML private Button closebutton;
-    @FXML private Label nodetitle;
-    @FXML private StackPane nodecontent;
+    private StackPane rootpane;
+    private BorderPane header;
+    private BorderPane bodydialog;
+    private Button closebutton;
+    private Label nodetitle;
+    private StackPane nodecontent;
     
     private ButtonBar nodebuttons = null;
     private Label nodeindicator = null;
@@ -50,11 +48,50 @@ public class DialogView {
     private StackPane parent;
     
     public DialogView() {
-        FXMLUtil.load(this, "/com/adr/hellocommon/fxml/dialogview.fxml", "com/adr/hellocommon/fxml/dialogview");
+        resources = ResourceBundle.getBundle("com/adr/hellocommon/fxml/dialogview");
+        
+        rootpane = new StackPane();
+        rootpane.setPadding(new Insets(10.0));
+        
+        bodydialog = new BorderPane();
+        bodydialog.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
+        bodydialog.getStyleClass().add("dialog-body");
+        
+        header = new BorderPane();
+        header.getStyleClass().add("dialog-title");
+        BorderPane.setAlignment(header, Pos.CENTER);
+        
+        closebutton = new Button();
+        closebutton.setCancelButton(true);
+        closebutton.setFocusTraversable(false);
+        closebutton.setMnemonicParsing(false);
+        closebutton.getStyleClass().add("dialog-close-button");
+        BorderPane.setAlignment(closebutton, Pos.TOP_CENTER);
+        ButtonBar.setButtonData(closebutton, ButtonBar.ButtonData.OK_DONE);
+        closebutton.setOnAction(this::onClose);
+        
+        header.setRight(closebutton);
+        
+        nodetitle = new Label();
+        nodetitle.getStyleClass().add("dialog-title-text");
+        BorderPane.setAlignment(nodetitle, Pos.CENTER);
+        
+        header.setLeft(nodetitle);
+        
+        bodydialog.setTop(header);
+        
+        nodecontent = new StackPane();
+        nodecontent.getStyleClass().add("dialog-content");
+        BorderPane.setAlignment(nodecontent, Pos.CENTER);
+        
+        bodydialog.setCenter(nodecontent);
+        
+        rootpane.getChildren().add(bodydialog);
+        
+        initialize();
     }
     
-    @FXML
-    public void initialize() {
+    protected void initialize() {
         rootpane.getProperties().put("DIALOG_VIEW", this);
 //        rootpane.setBackground(new Background(new BackgroundFill(Color.gray(0.5, 0.75), CornerRadii.EMPTY, Insets.EMPTY)));
         closebutton.setGraphic(IconBuilder.create(FontAwesome.FA_CLOSE).styleClass("dialog-close-icon").build());
@@ -204,7 +241,7 @@ public class DialogView {
         dispose();        
     }
     
-    @FXML void onClose(ActionEvent event) {
+    protected void onClose(ActionEvent event) {
         dispose();
     }
 }
