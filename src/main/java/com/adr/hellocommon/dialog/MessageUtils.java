@@ -23,14 +23,14 @@ package com.adr.hellocommon.dialog;
 
 import com.adr.fonticon.FontAwesome;
 import com.adr.fonticon.IconBuilder;
-import com.adr.fonticon.decorator.FillPaint;
-import com.adr.fonticon.decorator.Shine;
+import com.adr.fonticon.IconDecorator;
 import java.util.function.Consumer;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Shape;
 
 /**
  *
@@ -55,7 +55,7 @@ public class MessageUtils {
         contentex.setMessage(message);
         contentex.setException(t);   
         dialog.setContent(contentex.getNode());     
-        dialog.setIndicator(IconBuilder.create(FontAwesome.FA_TIMES_CIRCLE, 48.0).apply(new FillPaint(Color.web("#FF9999"))).apply(new Shine(Color.RED)).build());
+        dialog.setIndicator(IconBuilder.create(FontAwesome.FA_TIMES_CIRCLE, 48.0).apply(Colorize.create("#ca2024")).build());
         dialog.setActionDispose(actiondispose);
         dialog.addButtons(contentex.createButtonDetails(), dialog.createOKButton());
         dialog.show(parent);           
@@ -78,7 +78,7 @@ public class MessageUtils {
         dialog.setCSS(defaultcss);
         dialog.setTitle(title);
         dialog.setMessage(message);
-        dialog.setIndicator(IconBuilder.create(FontAwesome.FA_QUESTION_CIRCLE, 48.0).apply(new FillPaint(Color.web("#9999FF"))).apply(new Shine(Color.BLUE)).build());
+        dialog.setIndicator(IconBuilder.create(FontAwesome.FA_QUESTION_CIRCLE, 48.0).apply(Colorize.create("#497ccb")).build());
         dialog.setActionOK(actionok);
         dialog.addButtons(dialog.createCancelButton(), dialog.createOKButton());
         dialog.show(parent);               
@@ -100,7 +100,7 @@ public class MessageUtils {
         dialog.setCSS(defaultcss);
         dialog.setTitle(title);
         dialog.setMessage(message);
-        dialog.setIndicator(IconBuilder.create(FontAwesome.FA_TIMES_CIRCLE, 48.0).apply(new FillPaint(Color.web("#FF9999"))).apply(new Shine(Color.RED)).build());
+        dialog.setIndicator(IconBuilder.create(FontAwesome.FA_TIMES_CIRCLE, 48.0).apply(Colorize.create("#ca2024")).build());
         dialog.addButtons(dialog.createOKButton());
         dialog.setActionDispose(actiondispose);
         dialog.show(parent);         
@@ -115,7 +115,7 @@ public class MessageUtils {
         dialog.setCSS(defaultcss);
         dialog.setTitle(title);
         dialog.setMessage(message);
-        dialog.setIndicator(IconBuilder.create(FontAwesome.FA_WARNING, 48.0).apply(new FillPaint(Color.web("#FFFF99"))).apply(new Shine(Color.YELLOW)).build());
+        dialog.setIndicator(IconBuilder.create(FontAwesome.FA_WARNING, 48.0).apply(Colorize.create("#f0c430")).build());
         dialog.addButtons(dialog.createOKButton());    
         dialog.setActionDispose(actiondispose);
         dialog.show(parent);      
@@ -130,7 +130,7 @@ public class MessageUtils {
         dialog.setCSS(defaultcss);
         dialog.setTitle(title);
         dialog.setMessage(message);
-        dialog.setIndicator(IconBuilder.create(FontAwesome.FA_INFO_CIRCLE, 48.0).apply(new FillPaint(Color.web("#9999FF"))).apply(new Shine(Color.BLUE)).build());
+        dialog.setIndicator(IconBuilder.create(FontAwesome.FA_INFO_CIRCLE, 48.0).apply(Colorize.create("#62bb2a")).build());
         dialog.addButtons(dialog.createOKButton());  
         dialog.setActionDispose(actiondispose);
         dialog.show(parent);      
@@ -187,4 +187,21 @@ public class MessageUtils {
             }
         }
     }
+    
+    private static class Colorize implements IconDecorator {
+        private Color color1;    
+        private static Colorize create(String color1) {
+            Colorize c = new Colorize();
+            c.color1 = Color.web(color1);
+            return c;
+        }
+        private Colorize() {
+        }
+        @Override
+        public void decorate(Shape s) {
+            s.setFill(color1);
+            s.setStrokeWidth(1.0);
+            s.setStroke(color1.deriveColor(1.0, 0.5, 0.8, 1.0));            
+        }
+    }    
 }
