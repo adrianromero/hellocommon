@@ -56,7 +56,6 @@ public class Demo extends Application {
         );
 
         StackPane root = new StackPane();
-        root.getStyleClass().add("maincontainer");
         root.getChildren().add(flow);
 
         MessageUtils.useDefaultCSS();
