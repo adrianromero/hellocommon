@@ -24,7 +24,7 @@ apply plugin: 'maven'
 apply plugin: 'application'
 
 group = 'com.github.adrianromero'
-version = '1.2.18'
+version = '1.2.19'
 
 mainClassName = 'com.adr.hellocommon.dialog.Demo'
 
@@ -41,7 +41,7 @@ repositories {
 }
 
 dependencies {
-    compile group: 'com.github.adrianromero', name: 'fonticon', version:'1.2.2'    
+    compile group: 'com.github.adrianromero', name: 'fonticon', version:'1.2.4'    
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
