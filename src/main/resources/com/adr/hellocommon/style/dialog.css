@@ -1,13 +1,35 @@
+/*
+    HelloCommon are basic JavaFX utilities
+
+    Copyright (C) 2015-2018 Adrián Romero Corchado.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+*/
+    
 .dialog-body {
-       
-    -fx-background-color: -fx-background;  
-    -fx-effect: dropshadow(one-pass-box, #555555, 20, 0.5, 3, 3);
+    -fx-background-insets: -2, -1 , 0;
+    -fx-background-color: rgba(128, 128, 128, 0.2), rgb(128, 128, 128), -fx-background;     
 }
 
 .dialog-close-button {
     -fx-background-color: transparent;
     -fx-background-insets: 0;
-    -fx-background-radius: 16px;
+    -fx-background-radius: 3px;
     -fx-alignment: center;
     -fx-padding: 8px 12px 8px 12px; 
     -fx-text-fill: #555555;
@@ -23,11 +45,10 @@
 .dialog-title-text {
     -fx-font-size: 14;
     -fx-font-weight: bold;
-    -fx-text-fill:#333333;
-    -fx-effect: dropshadow(one-pass-box, #cccccc, 1.0, 0.0, 1.0, 1.0);           
+    -fx-text-fill:#333333;  
 }
+
 .dialog-title {
- 
     -fx-background-color: -fx-box-border, white;
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 5 10 5 10;

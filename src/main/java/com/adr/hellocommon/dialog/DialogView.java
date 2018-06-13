@@ -46,14 +46,14 @@ public class DialogView {
 
     private final static Logger logger = Logger.getLogger(DialogView.class.getName());
 
-    private ResourceBundle resources;  
+    private final ResourceBundle resources;  
     
-    private StackPane rootpane;
-    private BorderPane header;
-    private BorderPane bodydialog;
-    private Button closebutton;
-    private Label nodetitle;
-    private StackPane nodecontent;
+    private final StackPane rootpane;
+    private final BorderPane header;
+    private final BorderPane bodydialog;
+    private final Button closebutton;
+    private final Label nodetitle;
+    private final StackPane nodecontent;
     
     private ButtonBar nodebuttons = null;
     private Label nodeindicator = null;
@@ -68,6 +68,7 @@ public class DialogView {
         
         rootpane = new StackPane();
         rootpane.setPadding(new Insets(10.0));
+        rootpane.getProperties().put("DIALOG_VIEW", this);
         
         bodydialog = new BorderPane();
         bodydialog.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
@@ -75,9 +76,11 @@ public class DialogView {
         
         header = new BorderPane();
         header.getStyleClass().add("dialog-title");
+        header.setVisible(false); 
         BorderPane.setAlignment(header, Pos.CENTER);
         
         closebutton = new Button();
+        closebutton.setGraphic(IconBuilder.create(FontAwesome.FA_CLOSE).styleClass("dialog-close-icon").build());
         closebutton.setCancelButton(true);
         closebutton.setFocusTraversable(false);
         closebutton.setMnemonicParsing(false);
@@ -103,21 +106,16 @@ public class DialogView {
         bodydialog.setCenter(nodecontent);
         
         rootpane.getChildren().add(bodydialog);
-        
-        initialize();
     }
-    
-    protected void initialize() {
-        rootpane.getProperties().put("DIALOG_VIEW", this);
-//        rootpane.setBackground(new Background(new BackgroundFill(Color.gray(0.5, 0.75), CornerRadii.EMPTY, Insets.EMPTY)));
-        closebutton.setGraphic(IconBuilder.create(FontAwesome.FA_CLOSE).styleClass("dialog-close-icon").build());
-        header.setVisible(false);        
-    }    
-    
+
     public Node getNode() {
         return rootpane;
     }
-    
+
+    public void addStyleClass(String styleclass) {
+        rootpane.getStyleClass().add(styleclass);    
+    }
+
     public void setCSS(String css) {
         if (css != null) {
             rootpane.getStylesheets().add(getClass().getResource(css).toExternalForm());
@@ -210,7 +208,7 @@ public class DialogView {
         return ok;
     }
     
-    public void show(StackPane parent) {
+    public void show(StackPane parent, boolean animate) {
 
         this.parent = parent;
         ObservableList<Node> children = parent.getChildren();
@@ -219,8 +217,13 @@ public class DialogView {
         }
         parent.getChildren().add(rootpane);
         
-        ShowAnimation.createAnimationFade(rootpane).playFromStart();
-        ShowAnimation.createAnimationCurtain(bodydialog).playFromStart();
+        if (animate) {
+            ShowAnimation.createAnimationScale(bodydialog).playFromStart();
+        }
+    }
+    
+    public void show(StackPane parent) {
+        show(parent, true);
     }
     
     public void dispose() {

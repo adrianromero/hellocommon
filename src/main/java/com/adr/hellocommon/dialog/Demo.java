@@ -20,13 +20,17 @@
 //    under the License.
 package com.adr.hellocommon.dialog;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  *
@@ -47,7 +51,8 @@ public class Demo extends Application {
                 showInfo(),
                 showWarning(),
                 showError(),
-                showException()
+                showException(),
+                showLoading()
         );
 
         StackPane root = new StackPane();
@@ -104,6 +109,31 @@ public class Demo extends Application {
             MessageUtils.showException(MessageUtils.getRoot(b), "Title", new NullPointerException("Long exception message"));
         });
         return b;
+    }
+    
+    private Button showLoading() {
+        Button b = new Button("showLoading");
+        b.setOnAction(ev -> {
+            DialogView loading = createLoading();
+            loading.setCSS("/com/adr/hellocommon/style/dialog.css");
+            loading.setCSS("/com/adr/hellocommon/style/demo.css");
+            loading.show(MessageUtils.getRoot(b), false);
+            new Timeline(new KeyFrame(Duration.millis(10000.0), handler -> {
+                loading.dispose();
+            })).play();
+        });
+        return b;
+    }    
+    
+    private DialogView createLoading() {
+
+        ProgressBar p = new ProgressBar();
+        p.getStyleClass().add("loading-bar");
+
+        DialogView dialog = new DialogView();
+        dialog.setMaster(true);
+        dialog.setContent(p);
+        return dialog;
     }
 
     public static void main(String[] args) {

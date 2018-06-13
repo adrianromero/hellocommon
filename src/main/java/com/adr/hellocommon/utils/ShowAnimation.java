@@ -31,6 +31,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.scene.CacheHint;
 import javafx.scene.Node;
 import javafx.util.Duration;
 
@@ -122,7 +123,22 @@ public class ShowAnimation {
         s2.setToValue(1.0);
         return s2;
     }    
+    
+    public static Animation createAnimationScale(Node n) {
 
+        n.setCache(true);
+        n.setCacheHint(CacheHint.SCALE);
+        
+        ScaleTransition s3 = new ScaleTransition(Duration.millis(300), n);
+        s3.setInterpolator(Interpolator.EASE_OUT);
+        s3.setFromX(0.4);
+        s3.setFromY(0.4);
+        s3.setToX(1.0);
+        s3.setToY(1.0);
+        
+        return new ParallelTransition(s3);
+    }  
+    
     public static Animation createAnimationCurtain(Node n) {
 
         TranslateTransition s1 = new TranslateTransition(Duration.millis(300), n);
