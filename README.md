@@ -34,6 +34,12 @@ It is needed an *StackPane* as parent for internal dialogs. Usually the *Scene* 
     MessageUtils.setDialogRoot(root, true);
 ```
 
+And it is also a good idea to set the default *css* for all message dialogs in *MessageUtils*.
+
+```java
+    MessageUtils.useDefaultCSS();
+```
+
 Information dialog
 ------------------
 
