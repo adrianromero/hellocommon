@@ -16,9 +16,32 @@ To install the library add:
         maven { url "https://jitpack.io" }
    }
    dependencies {
-         compile 'com.github.adrianromero:hellocommon:1.2.19'
+         compile 'com.github.adrianromero:hellocommon:1.2.20'
    }
    ```  
+
+Usage
+=====
+
+Go to the [Demo.java](blob/master/src/main/java/com/adr/hellocommon/dialog/Demo.java) class file to see how to intialize and use HelloCommon.
+
+Initialize
+----------
+
+It is needed an *StackPane* as parent for internal dialogs. Usually the *Scene* root.
+
+    ```java
+    MessageUtils.setDialogRoot(root, true);
+    ```
+
+Information dialog
+------------------
+
+    ```java
+    MessageUtils.showInfo(root, "Title", "Information message.");
+    ```
+
+    ![Information dialog](https://i.imgur.com/DDCqF3M.png)
 
 License
 =======
