@@ -23,7 +23,7 @@ To install the library add:
 Usage
 =====
 
-Go to the [Demo.java](blob/master/src/main/java/com/adr/hellocommon/dialog/Demo.java) class file to see how to intialize and use HelloCommon.
+Go to the [Demo.java](src/main/java/com/adr/hellocommon/dialog/Demo.java) class file to see how to intialize and use HelloCommon.
 
 Initialize
 ----------
