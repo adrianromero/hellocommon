@@ -10,15 +10,15 @@ Install
 
 To install the library add: 
  
-   ```gradle
-   repositories { 
+```gradle
+    repositories { 
         jcenter()
         maven { url "https://jitpack.io" }
-   }
-   dependencies {
-         compile 'com.github.adrianromero:hellocommon:1.2.20'
-   }
-   ```  
+    }
+    dependencies {
+        compile 'com.github.adrianromero:hellocommon:1.2.20'
+    }
+```  
 
 Usage
 =====
@@ -30,9 +30,9 @@ Initialize
 
 It is needed an *StackPane* as parent for internal dialogs. Usually the *Scene* root.
 
-    ```Java
+```java
     MessageUtils.setDialogRoot(root, true);
-    ```
+```
 
 Information dialog
 ------------------
