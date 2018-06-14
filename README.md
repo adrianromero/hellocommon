@@ -30,18 +30,18 @@ Initialize
 
 It is needed an *StackPane* as parent for internal dialogs. Usually the *Scene* root.
 
-    ```java
+    ```Java
     MessageUtils.setDialogRoot(root, true);
     ```
 
 Information dialog
 ------------------
 
-    ```java
+```java
     MessageUtils.showInfo(root, "Title", "Information message.");
-    ```
+```
 
-    ![Information dialog](https://i.imgur.com/DDCqF3M.png)
+![Information dialog](https://i.imgur.com/DDCqF3M.png)
 
 License
 =======
