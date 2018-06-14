@@ -116,7 +116,7 @@ public class Demo extends Application {
             DialogView loading = createLoading();
             loading.setCSS("/com/adr/hellocommon/style/dialog.css");
             loading.setCSS("/com/adr/hellocommon/style/demo.css");
-            loading.show(MessageUtils.getRoot(b), false);
+            loading.show(MessageUtils.getRoot(b));
             new Timeline(new KeyFrame(Duration.millis(10000.0), handler -> {
                 loading.dispose();
             })).play();
@@ -131,6 +131,7 @@ public class Demo extends Application {
 
         DialogView dialog = new DialogView();
         dialog.setMaster(true);
+        dialog.setAnimate(false);
         dialog.setContent(p);
         return dialog;
     }

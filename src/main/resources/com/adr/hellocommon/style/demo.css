@@ -35,7 +35,6 @@
 .loading-bar > .bar {
     -fx-background-insets: 0;    
     -fx-background-radius: 0;
-
 }
 .loading-bar:indeterminate > .bar {
     -fx-background-color: linear-gradient(to left, transparent, blue);

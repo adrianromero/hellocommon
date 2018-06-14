@@ -58,6 +58,7 @@ public class DialogView {
     private ButtonBar nodebuttons = null;
     private Label nodeindicator = null;
     private boolean master = false;
+    private boolean animate = true;
     
     private Consumer<ActionEvent> actionok = null;    
     private Consumer<ActionEvent> actiondispose = null;    
@@ -169,6 +170,14 @@ public class DialogView {
         this.master = master;
     }
     
+    public boolean isAnimate() {
+        return animate;
+    }
+    
+    public void setAnimate(boolean animate) {
+        this.animate = animate;
+    }
+    
     public void addButtons(Button... buttons) {
         
         if (nodebuttons == null) {
@@ -208,8 +217,7 @@ public class DialogView {
         return ok;
     }
     
-    public void show(StackPane parent, boolean animate) {
-
+    public void show(StackPane parent) {
         this.parent = parent;
         ObservableList<Node> children = parent.getChildren();
         if (!children.isEmpty()) {
@@ -220,10 +228,6 @@ public class DialogView {
         if (animate) {
             ShowAnimation.createAnimationScale(bodydialog).playFromStart();
         }
-    }
-    
-    public void show(StackPane parent) {
-        show(parent, true);
     }
     
     public void dispose() {
