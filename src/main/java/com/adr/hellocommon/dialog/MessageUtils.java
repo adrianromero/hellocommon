@@ -47,6 +47,10 @@ public class MessageUtils {
         defaultcss = "/com/adr/hellocommon/style/dialog.css";
     }
     
+    public static void useCSS(String css) {
+        defaultcss = css;
+    }
+    
     public static void showException(StackPane parent, String title, String message, Throwable t, Consumer<ActionEvent> actiondispose) {
         DialogView dialog = new DialogView();
         dialog.setCSS(defaultcss);
