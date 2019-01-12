@@ -27,8 +27,8 @@
 
 /* Loading bar */
 .loading-bar {
-    -fx-pref-width: 400;
-    -fx-pref-height: 5;
+    -fx-pref-width: 250;
+    -fx-pref-height: 20;
     -fx-min-width: -1;
     -fx-min-height: 5;
 }
