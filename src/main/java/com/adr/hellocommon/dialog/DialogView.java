@@ -1,6 +1,6 @@
 //    HelloCommon are basic JavaFX utilities
 //
-//    Copyright (C) 2015-2018 Adrián Romero Corchado.
+//    Copyright (C) 2015-2019 Adrián Romero Corchado.
 //
 //    Licensed to the Apache Software Foundation (ASF) under one
 //    or more contributor license agreements.  See the NOTICE file
@@ -26,6 +26,7 @@ import com.adr.hellocommon.utils.ShowAnimation;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
+import javafx.animation.Animation;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -74,6 +75,7 @@ public class DialogView {
         bodydialog = new BorderPane();
         bodydialog.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
         bodydialog.getStyleClass().add("dialog-body");
+        bodydialog.setDisable(true);
         
         header = new BorderPane();
         header.getStyleClass().add("dialog-title");
@@ -225,13 +227,14 @@ public class DialogView {
         }
         parent.getChildren().add(rootpane);
         
+        bodydialog.setDisable(false);
+        
         if (animate) {
-            ShowAnimation.createAnimationScale(bodydialog).playFromStart();
+            ShowAnimation.createAnimationShowDialog(bodydialog).playFromStart();
         }
     }
     
-    public void dispose() {
-        
+    private void handledispose() {
         if (actiondispose != null) {
             ActionEvent disposeevent = new ActionEvent();
             actiondispose.accept(disposeevent);
@@ -245,7 +248,20 @@ public class DialogView {
         if (!children.isEmpty()) {
             children.get(children.size() - 1).setDisable(false);
         }
-        parent = null;            
+        parent = null;          
+    }
+    
+    public void dispose() {
+        
+        bodydialog.setDisable(true);
+        
+        if (animate) {
+            Animation closeanimation = ShowAnimation.createAnimationHideDialog(bodydialog);
+            closeanimation.playFromStart();
+            closeanimation.setOnFinished(e -> this.handledispose());
+        } else {
+            handledispose();
+        }
     }
     
     public boolean isShowing() {

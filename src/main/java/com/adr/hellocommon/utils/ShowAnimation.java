@@ -1,6 +1,6 @@
 //    HelloCommon are basic JavaFX utilities
 //
-//    Copyright (C) 2015-2018 Adrián Romero Corchado.
+//    Copyright (C) 2015-2019 Adrián Romero Corchado.
 //
 //    Licensed to the Apache Software Foundation (ASF) under one
 //    or more contributor license agreements.  See the NOTICE file
@@ -35,10 +35,6 @@ import javafx.scene.CacheHint;
 import javafx.scene.Node;
 import javafx.util.Duration;
 
-/**
- *
- * @author adrian
- */
 public class ShowAnimation {
  
     private final Node node;
@@ -124,7 +120,7 @@ public class ShowAnimation {
         return s2;
     }    
     
-    public static Animation createAnimationScale(Node n) {
+    public static Animation createAnimationShowDialog(Node n) {
 
         n.setCache(true);
         n.setCacheHint(CacheHint.SCALE);
@@ -136,8 +132,28 @@ public class ShowAnimation {
         s3.setToX(1.0);
         s3.setToY(1.0);
         
-        return new ParallelTransition(s3);
+        return s3;
     }  
+    
+    public static Animation createAnimationHideDialog(Node n) {
+
+        n.setCache(true);
+        n.setCacheHint(CacheHint.SCALE);
+         
+        FadeTransition s2 = new FadeTransition(Duration.millis(200), n);
+        s2.setInterpolator(Interpolator.EASE_IN);
+        s2.setFromValue(1.0);
+        s2.setToValue(0.0); 
+        
+        ScaleTransition s3 = new ScaleTransition(Duration.millis(200), n);
+        s3.setInterpolator(Interpolator.EASE_IN);
+        s3.setFromX(1.0);
+        s3.setFromY(1.0);
+        s3.setToX(1.25);
+        s3.setToY(1.25);
+          
+        return new ParallelTransition(s2, s3);
+    }      
     
     public static Animation createAnimationCurtain(Node n) {
 
