@@ -1,6 +1,6 @@
 //    HelloCommon are basic JavaFX utilities
 //
-//    Copyright (C) 2015-2018 Adrián Romero Corchado.
+//    Copyright (C) 2015-2019 Adrián Romero Corchado.
 //
 //    Licensed to the Apache Software Foundation (ASF) under one
 //    or more contributor license agreements.  See the NOTICE file
@@ -105,12 +105,12 @@ public class DialogException  {
     private void showDetails(Button b) {
         textexception.setVisible(true);
         textexception.setPrefSize(400.0, 200.0);        
-        b.setGraphic(IconBuilder.create(FontAwesome.FA_MINUS).styleClass("dialog-button-icon").build());               
+        b.setGraphic(IconBuilder.create(FontAwesome.FA_MINUS).styleClass("icon-fill").build());               
     }
     
     private void hideDetails(Button b) {
         textexception.setVisible(false);
         textexception.setPrefSize(0.0, 0.0);        
-        b.setGraphic(IconBuilder.create(FontAwesome.FA_PLUS).styleClass("dialog-button-icon").build());          
+        b.setGraphic(IconBuilder.create(FontAwesome.FA_PLUS).styleClass("icon-fill").build());          
     }
 }
