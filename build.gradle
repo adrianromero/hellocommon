@@ -24,7 +24,7 @@ apply plugin: 'maven'
 apply plugin: 'application'
 
 group = 'com.github.adrianromero'
-version = '1.2.22'
+version = '1.2.23'
 
 mainClassName = 'com.adr.hellocommon.dialog.Demo'
 
