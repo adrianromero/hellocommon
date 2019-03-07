@@ -19,12 +19,14 @@
 //    specific language governing permissions and limitations
 //    under the License.   
     
-apply plugin: 'java'
-apply plugin: 'maven'
-apply plugin: 'application'
+plugins {
+  id 'java'
+  id 'maven'
+  id 'application'
+}
 
 group = 'com.github.adrianromero'
-version = '1.2.23'
+version = '1.2.30'
 
 mainClassName = 'com.adr.hellocommon.dialog.Demo'
 
@@ -41,7 +43,7 @@ repositories {
 }
 
 dependencies {
-    compile group: 'com.github.adrianromero', name: 'fonticon', version:'1.2.4'    
+    compile group: 'com.github.adrianromero', name: 'fonticon', version:'1.2.4'
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
