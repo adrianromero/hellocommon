@@ -1,6 +1,6 @@
 //    HelloCommon are basic JavaFX utilities
 //
-//    Copyright (C) 2018 Adrián Romero Corchado.
+//    Copyright (C) 2018-2019 Adrián Romero Corchado.
 //
 //    Licensed to the Apache Software Foundation (ASF) under one
 //    or more contributor license agreements.  See the NOTICE file
@@ -24,11 +24,14 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -40,10 +43,11 @@ public class Demo extends Application {
 
     @Override
     public void start(Stage stage) {
+        
+        MessageUtils.useDefaultCSS();
 
-        FlowPane flow = new FlowPane();
-        flow.setVgap(6);
-        flow.setHgap(6);
+        HBox flow = new HBox();
+        flow.setSpacing(6.0);
         flow.setPadding(new Insets(6));
 
         flow.getChildren().addAll(
@@ -54,11 +58,27 @@ public class Demo extends Application {
                 showException(),
                 showLoading()
         );
+        
+        FlowPane flowdialogs = new FlowPane();
+        flowdialogs.setVgap(6);
+        flowdialogs.setHgap(6);
+        flowdialogs.setPadding(new Insets(6));
 
-        StackPane root = new StackPane();
-        root.getChildren().add(flow);
+        
+        Node body1 = MessageUtils.createWarning("Title", "Warning message", null).getBodyDialog();
+        Node body2 = MessageUtils.createError("Title", "Error message", null).getBodyDialog();
+        Node body3 = MessageUtils.createConfirm("Title", "Confirm message", null).getBodyDialog();
+        Node body4 = MessageUtils.createInfo("Title", "Info message", null).getBodyDialog();
+        Node body5 = MessageUtils.createSystemMessage("System message").getBodyDialog();      
+        Node bodyexception = MessageUtils.createException("Title", "Long exception message", new NullPointerException(), null).getBodyDialog();
+        
+        flowdialogs.getChildren().addAll(
+                body1, body2, body3, body4, body5,
+                bodyexception
+        );        
 
-        MessageUtils.useDefaultCSS();
+        VBox container = new VBox(flow, flowdialogs);
+        StackPane root = new StackPane(container);
         MessageUtils.setDialogRoot(root, true);
         Scene scene = new Scene(root);
 

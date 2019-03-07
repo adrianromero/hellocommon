@@ -1,6 +1,6 @@
 //    HelloCommon are basic JavaFX utilities
 //
-//    Copyright (C) 2015-2018 Adrián Romero Corchado.
+//    Copyright (C) 2015-2019 Adrián Romero Corchado.
 //
 //    Licensed to the Apache Software Foundation (ASF) under one
 //    or more contributor license agreements.  See the NOTICE file
@@ -51,7 +51,7 @@ public class MessageUtils {
         defaultcss = css;
     }
     
-    public static void showException(StackPane parent, String title, String message, Throwable t, Consumer<ActionEvent> actiondispose) {
+    public static DialogView createException(String title, String message, Throwable t, Consumer<ActionEvent> actiondispose) {
         DialogView dialog = new DialogView();
         dialog.setCSS(defaultcss);
         dialog.setTitle(title);
@@ -62,7 +62,11 @@ public class MessageUtils {
         dialog.setIndicator(IconBuilder.create(FontAwesome.FA_TIMES_CIRCLE, 48.0).apply(Colorize.create("#ca2024")).build());
         dialog.setActionDispose(actiondispose);
         dialog.addButtons(contentex.createButtonDetails(), dialog.createOKButton());
-        dialog.show(parent);           
+        return dialog;           
+    }
+    
+    public static void showException(StackPane parent, String title, String message, Throwable t, Consumer<ActionEvent> actiondispose) {
+        createException(title, message, t, actiondispose).show(parent);           
     }
     
     public static void showException(StackPane parent, String title, String message, Throwable t) {
@@ -77,7 +81,7 @@ public class MessageUtils {
         showException(parent, title, t.getLocalizedMessage(), t, null);         
     }
     
-    public static void showConfirm(StackPane parent, String title, String message, Consumer<ActionEvent> actionok) {
+    public static DialogView createConfirm(String title, String message, Consumer<ActionEvent> actionok) {
         DialogView dialog = new DialogView();
         dialog.setCSS(defaultcss);
         dialog.setTitle(title);
@@ -85,10 +89,14 @@ public class MessageUtils {
         dialog.setIndicator(IconBuilder.create(FontAwesome.FA_QUESTION_CIRCLE, 48.0).apply(Colorize.create("#497ccb")).build());
         dialog.setActionOK(actionok);
         dialog.addButtons(dialog.createCancelButton(), dialog.createOKButton());
-        dialog.show(parent);               
+        return dialog;
     }
     
-    public static void showConfirm(StackPane parent, String title, Node content, Consumer<ActionEvent> actionok, Button... moreactions) {
+    public static void showConfirm(StackPane parent, String title, String message, Consumer<ActionEvent> actionok) {
+        createConfirm(title, message, actionok).show(parent);               
+    }
+    
+    public static DialogView createConfirm(String title, Node content, Consumer<ActionEvent> actionok, Button... moreactions) {
         DialogView dialog = new DialogView();
         dialog.setCSS(defaultcss);
         dialog.setTitle(title);
@@ -96,10 +104,14 @@ public class MessageUtils {
         dialog.setActionOK(actionok);
         dialog.addButtons(moreactions);
         dialog.addButtons(dialog.createCancelButton(), dialog.createOKButton());
-        dialog.show(parent);           
+        return dialog;         
+    }     
+    
+    public static void showConfirm(StackPane parent, String title, Node content, Consumer<ActionEvent> actionok, Button... moreactions) {
+        createConfirm(title, content, actionok, moreactions).show(parent);           
     }  
        
-    public static void showError(StackPane parent, String title, String message, Consumer<ActionEvent> actiondispose) {
+    public static DialogView createError(String title, String message, Consumer<ActionEvent> actiondispose) {
         DialogView dialog = new DialogView();
         dialog.setCSS(defaultcss);
         dialog.setTitle(title);
@@ -107,14 +119,18 @@ public class MessageUtils {
         dialog.setIndicator(IconBuilder.create(FontAwesome.FA_TIMES_CIRCLE, 48.0).apply(Colorize.create("#ca2024")).build());
         dialog.addButtons(dialog.createOKButton());
         dialog.setActionDispose(actiondispose);
-        dialog.show(parent);         
+        return dialog;        
+    }   
+       
+    public static void showError(StackPane parent, String title, String message, Consumer<ActionEvent> actiondispose) {
+        createError(title, message, actiondispose).show(parent);         
     }   
     
     public static void showError(StackPane parent, String title, String message) {
         showError(parent, title, message, null);       
     }     
     
-    public static void showWarning(StackPane parent, String title, String message, Consumer<ActionEvent> actiondispose) {
+    public static DialogView createWarning(String title, String message, Consumer<ActionEvent> actiondispose) {
         DialogView dialog = new DialogView();
         dialog.setCSS(defaultcss);
         dialog.setTitle(title);
@@ -122,14 +138,18 @@ public class MessageUtils {
         dialog.setIndicator(IconBuilder.create(FontAwesome.FA_WARNING, 48.0).apply(Colorize.create("#f0c430")).build());
         dialog.addButtons(dialog.createOKButton());    
         dialog.setActionDispose(actiondispose);
-        dialog.show(parent);      
+        return dialog;
+    } 
+    
+    public static void showWarning(StackPane parent, String title, String message, Consumer<ActionEvent> actiondispose) {
+        createWarning(title, message, actiondispose).show(parent);     
     } 
     
     public static void showWarning(StackPane parent, String title, String message) {
         showWarning(parent, title, message, null);    
     } 
     
-    public static void showInfo(StackPane parent, String title, String message, Consumer<ActionEvent> actiondispose) {
+    public static DialogView createInfo(String title, String message, Consumer<ActionEvent> actiondispose) {
         DialogView dialog = new DialogView();
         dialog.setCSS(defaultcss);
         dialog.setTitle(title);
@@ -137,17 +157,26 @@ public class MessageUtils {
         dialog.setIndicator(IconBuilder.create(FontAwesome.FA_INFO_CIRCLE, 48.0).apply(Colorize.create("#62bb2a")).build());
         dialog.addButtons(dialog.createOKButton());  
         dialog.setActionDispose(actiondispose);
-        dialog.show(parent);      
+        return dialog;     
+    }   
+    
+    public static void showInfo(StackPane parent, String title, String message, Consumer<ActionEvent> actiondispose) {
+        createInfo(title, message, actiondispose).show(parent);    
     } 
     
     public static void showInfo(StackPane parent, String title, String message) {
         showInfo(parent, title, message, null);    
     } 
     
-    public static DialogView showSystemMessage(StackPane parent, String message) {
+    public static DialogView createSystemMessage(String message) {
         DialogView dialog = new DialogView();
         dialog.setCSS(defaultcss);
-        dialog.setMessage(message);
+        dialog.setMessage(message); 
+        return dialog;        
+    }
+    
+    public static DialogView showSystemMessage(StackPane parent, String message) {
+        DialogView dialog = createSystemMessage(message);
         dialog.show(parent);  
         return dialog;
     }   
@@ -192,9 +221,9 @@ public class MessageUtils {
         }
     }
     
-    private static class Colorize implements IconDecorator {
+    public static class Colorize implements IconDecorator {
         private Color color1;    
-        private static Colorize create(String color1) {
+        public static Colorize create(String color1) {
             Colorize c = new Colorize();
             c.color1 = Color.web(color1);
             return c;

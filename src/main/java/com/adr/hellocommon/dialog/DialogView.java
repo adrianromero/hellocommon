@@ -25,7 +25,6 @@ import com.adr.fonticon.IconBuilder;
 import com.adr.hellocommon.utils.ShowAnimation;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
-import java.util.logging.Logger;
 import javafx.animation.Animation;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -45,11 +44,11 @@ import javafx.scene.layout.StackPane;
  */
 public class DialogView {
 
-    private final static Logger logger = Logger.getLogger(DialogView.class.getName());
-
     private final ResourceBundle resources;  
     
-    private final StackPane rootpane;
+    private StackPane parent;    
+    private StackPane rootpane = null;
+    
     private final BorderPane header;
     private final BorderPane bodydialog;
     private final Button closebutton;
@@ -63,19 +62,13 @@ public class DialogView {
     
     private Consumer<ActionEvent> actionok = null;    
     private Consumer<ActionEvent> actiondispose = null;    
-    private StackPane parent;
     
     public DialogView() {
         resources = ResourceBundle.getBundle("com/adr/hellocommon/fxml/dialogview");
         
-        rootpane = new StackPane();
-        rootpane.setPadding(new Insets(10.0));
-        rootpane.getProperties().put("DIALOG_VIEW", this);
-        
         bodydialog = new BorderPane();
         bodydialog.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
         bodydialog.getStyleClass().add("dialog-body");
-        bodydialog.setDisable(true);
         
         header = new BorderPane();
         header.getStyleClass().add("dialog-title");
@@ -107,21 +100,15 @@ public class DialogView {
         BorderPane.setAlignment(nodecontent, Pos.CENTER);
         
         bodydialog.setCenter(nodecontent);
-        
-        rootpane.getChildren().add(bodydialog);
     }
 
-    public Node getNode() {
-        return rootpane;
-    }
-
-    public void addStyleClass(String styleclass) {
-        rootpane.getStyleClass().add(styleclass);    
+    public Node getBodyDialog() {
+        return bodydialog;
     }
 
     public void setCSS(String css) {
         if (css != null) {
-            rootpane.getStylesheets().add(getClass().getResource(css).toExternalForm());
+            bodydialog.getStylesheets().add(getClass().getResource(css).toExternalForm());
         }
     }
     
@@ -225,6 +212,10 @@ public class DialogView {
         if (!children.isEmpty()) {
             children.get(children.size() - 1).setDisable(true);
         }
+
+        rootpane = new StackPane(bodydialog);
+        rootpane.setPadding(new Insets(10.0));
+        rootpane.getProperties().put("DIALOG_VIEW", this);        
         parent.getChildren().add(rootpane);
         
         bodydialog.setDisable(false);
@@ -243,12 +234,16 @@ public class DialogView {
             }
         }
         
-        ObservableList<Node> children = parent.getChildren();
-        children.remove(rootpane);
-        if (!children.isEmpty()) {
-            children.get(children.size() - 1).setDisable(false);
+        if (parent != null) {
+            ObservableList<Node> children = parent.getChildren();
+            children.remove(rootpane);
+            rootpane.getChildren().remove(bodydialog);
+            rootpane = null;
+            if (!children.isEmpty()) {
+                children.get(children.size() - 1).setDisable(false);
+            }
+            parent = null;          
         }
-        parent = null;          
     }
     
     public void dispose() {
