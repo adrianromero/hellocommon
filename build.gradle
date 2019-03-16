@@ -26,7 +26,7 @@ plugins {
 }
 
 group = 'com.github.adrianromero'
-version = '1.2.30'
+version = '2.0.0'
 
 mainClassName = 'com.adr.hellocommon.dialog.Demo'
 
@@ -37,13 +37,13 @@ targetCompatibility = '1.8'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 repositories {
+    mavenLocal()
     mavenCentral()
-    jcenter()
     maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-    compile group: 'com.github.adrianromero', name: 'fonticon', version:'1.2.4'
+    compile group: 'com.github.adrianromero', name: 'fonticon', version:'2.0.0'
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {

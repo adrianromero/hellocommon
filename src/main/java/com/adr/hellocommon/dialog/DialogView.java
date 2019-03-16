@@ -20,8 +20,8 @@
 //    under the License.
 package com.adr.hellocommon.dialog;
 
-import com.adr.fonticon.FontAwesome;
 import com.adr.fonticon.IconBuilder;
+import com.adr.fonticon.IconFontGlyph;
 import com.adr.hellocommon.utils.ShowAnimation;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
@@ -76,7 +76,7 @@ public class DialogView {
         BorderPane.setAlignment(header, Pos.CENTER);
         
         closebutton = new Button();
-        closebutton.setGraphic(IconBuilder.create(FontAwesome.FA_CLOSE).styleClass("dialog-close-icon").build());
+        closebutton.setGraphic(IconBuilder.create(IconFontGlyph.FA_SOLID_WINDOW_CLOSE).styleClass("dialog-close-icon").build());
         closebutton.setCancelButton(true);
         closebutton.setFocusTraversable(false);
         closebutton.setMnemonicParsing(false);

@@ -21,7 +21,7 @@
 
 package com.adr.hellocommon.dialog;
 
-import com.adr.fonticon.FontAwesome;
+import com.adr.fonticon.IconFontGlyph;
 import com.adr.fonticon.IconBuilder;
 import com.adr.fonticon.IconDecorator;
 import java.util.function.Consumer;
@@ -59,7 +59,7 @@ public class MessageUtils {
         contentex.setMessage(message);
         contentex.setException(t);   
         dialog.setContent(contentex.getNode());     
-        dialog.setIndicator(IconBuilder.create(FontAwesome.FA_TIMES_CIRCLE, 48.0).apply(Colorize.create("#ca2024")).build());
+        dialog.setIndicator(IconBuilder.create(IconFontGlyph.FA_SOLID_TIMES_CIRCLE, 48.0).apply(Colorize.create("#ca2024")).build());
         dialog.setActionDispose(actiondispose);
         dialog.addButtons(contentex.createButtonDetails(), dialog.createOKButton());
         return dialog;           
@@ -86,7 +86,7 @@ public class MessageUtils {
         dialog.setCSS(defaultcss);
         dialog.setTitle(title);
         dialog.setMessage(message);
-        dialog.setIndicator(IconBuilder.create(FontAwesome.FA_QUESTION_CIRCLE, 48.0).apply(Colorize.create("#497ccb")).build());
+        dialog.setIndicator(IconBuilder.create(IconFontGlyph.FA_SOLID_QUESTION_CIRCLE, 48.0).apply(Colorize.create("#497ccb")).build());
         dialog.setActionOK(actionok);
         dialog.addButtons(dialog.createCancelButton(), dialog.createOKButton());
         return dialog;
@@ -116,7 +116,7 @@ public class MessageUtils {
         dialog.setCSS(defaultcss);
         dialog.setTitle(title);
         dialog.setMessage(message);
-        dialog.setIndicator(IconBuilder.create(FontAwesome.FA_TIMES_CIRCLE, 48.0).apply(Colorize.create("#ca2024")).build());
+        dialog.setIndicator(IconBuilder.create(IconFontGlyph.FA_SOLID_TIMES_CIRCLE, 48.0).apply(Colorize.create("#ca2024")).build());
         dialog.addButtons(dialog.createOKButton());
         dialog.setActionDispose(actiondispose);
         return dialog;        
@@ -135,7 +135,7 @@ public class MessageUtils {
         dialog.setCSS(defaultcss);
         dialog.setTitle(title);
         dialog.setMessage(message);
-        dialog.setIndicator(IconBuilder.create(FontAwesome.FA_WARNING, 48.0).apply(Colorize.create("#f0c430")).build());
+        dialog.setIndicator(IconBuilder.create(IconFontGlyph.FA_SOLID_EXCLAMATION_TRIANGLE, 48.0).apply(Colorize.create("#f0c430")).build());
         dialog.addButtons(dialog.createOKButton());    
         dialog.setActionDispose(actiondispose);
         return dialog;
@@ -154,7 +154,7 @@ public class MessageUtils {
         dialog.setCSS(defaultcss);
         dialog.setTitle(title);
         dialog.setMessage(message);
-        dialog.setIndicator(IconBuilder.create(FontAwesome.FA_INFO_CIRCLE, 48.0).apply(Colorize.create("#62bb2a")).build());
+        dialog.setIndicator(IconBuilder.create(IconFontGlyph.FA_SOLID_INFO_CIRCLE, 48.0).apply(Colorize.create("#62bb2a")).build());
         dialog.addButtons(dialog.createOKButton());  
         dialog.setActionDispose(actiondispose);
         return dialog;     

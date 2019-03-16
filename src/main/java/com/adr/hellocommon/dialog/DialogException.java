@@ -21,8 +21,8 @@
 
 package com.adr.hellocommon.dialog;
 
-import com.adr.fonticon.FontAwesome;
 import com.adr.fonticon.IconBuilder;
+import com.adr.fonticon.IconFontGlyph;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ResourceBundle;
@@ -105,12 +105,12 @@ public class DialogException  {
     private void showDetails(Button b) {
         textexception.setVisible(true);
         textexception.setPrefSize(400.0, 200.0);        
-        b.setGraphic(IconBuilder.create(FontAwesome.FA_MINUS).styleClass("icon-fill").build());               
+        b.setGraphic(IconBuilder.create(IconFontGlyph.FA_SOLID_MINUS).styleClass("icon-fill").build());               
     }
     
     private void hideDetails(Button b) {
         textexception.setVisible(false);
         textexception.setPrefSize(0.0, 0.0);        
-        b.setGraphic(IconBuilder.create(FontAwesome.FA_PLUS).styleClass("icon-fill").build());          
+        b.setGraphic(IconBuilder.create(IconFontGlyph.FA_SOLID_PLUS).styleClass("icon-fill").build());          
     }
 }
