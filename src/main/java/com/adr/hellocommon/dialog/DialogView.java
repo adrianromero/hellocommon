@@ -76,7 +76,7 @@ public class DialogView {
         BorderPane.setAlignment(header, Pos.CENTER);
         
         closebutton = new Button();
-        closebutton.setGraphic(IconBuilder.create(IconFontGlyph.FA_SOLID_WINDOW_CLOSE).styleClass("dialog-close-icon").build());
+        closebutton.setGraphic(IconBuilder.create(IconFontGlyph.FA_SOLID_TIMES).styleClass("dialog-close-icon").build());
         closebutton.setCancelButton(true);
         closebutton.setFocusTraversable(false);
         closebutton.setMnemonicParsing(false);
