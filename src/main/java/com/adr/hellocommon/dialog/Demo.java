@@ -21,17 +21,24 @@
 package com.adr.hellocommon.dialog;
 
 import javafx.animation.KeyFrame;
+import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.scene.CacheHint;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Shape;
+import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.shape.StrokeType;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -43,7 +50,7 @@ public class Demo extends Application {
 
     @Override
     public void start(Stage stage) {
-        
+
         MessageUtils.useDefaultCSS();
 
         HBox flow = new HBox();
@@ -58,24 +65,19 @@ public class Demo extends Application {
                 showException(),
                 showLoading()
         );
-        
+
         FlowPane flowdialogs = new FlowPane();
         flowdialogs.setVgap(6);
         flowdialogs.setHgap(6);
         flowdialogs.setPadding(new Insets(6));
 
-        
-        Node body1 = MessageUtils.createWarning("Title", "Warning message", null).getBodyDialog();
-        Node body2 = MessageUtils.createError("Title", "Error message", null).getBodyDialog();
-        Node body3 = MessageUtils.createConfirm("Title", "Confirm message", null).getBodyDialog();
-        Node body4 = MessageUtils.createInfo("Title", "Info message", null).getBodyDialog();
-        Node body5 = MessageUtils.createSystemMessage("System message").getBodyDialog();      
-        Node bodyexception = MessageUtils.createException("Title", "Long exception message", new NullPointerException(), null).getBodyDialog();
-        
         flowdialogs.getChildren().addAll(
-                body1, body2, body3, body4, body5,
-                bodyexception
-        );        
+                createBox(MessageUtils.createWarning("Title", "Warning message", null)),
+                createBox(MessageUtils.createError("Title", "Error message", null)),
+                createBox(MessageUtils.createConfirm("Title", "Confirm message", null)),
+                createBox(MessageUtils.createInfo("Title", "Info message", null)),
+                createBox(MessageUtils.createSystemMessage("System message")),
+                createBox(MessageUtils.createException("Title", "Long exception message", new NullPointerException(), null)));
 
         VBox container = new VBox(flow, flowdialogs);
         StackPane root = new StackPane(container);
@@ -87,6 +89,16 @@ public class Demo extends Application {
         stage.setTitle("HelloCommon Demo");
         stage.setScene(scene);
         stage.show();
+    }
+
+    private Node createBox(DialogView dialog) {
+        dialog.setActionClose(ev -> ev.consume());
+
+        StackPane container1 = new StackPane(dialog.getBodyDialog());
+        container1.setPrefSize(250.0, 200.0);
+        container1.setMinSize(250.0, 200.0);
+        container1.setMaxSize(250.0, 200.0);
+        return container1;
     }
 
     private Button showConfirm() {
@@ -129,7 +141,7 @@ public class Demo extends Application {
         });
         return b;
     }
-    
+
     private Button showLoading() {
         Button b = new Button("showLoading");
         b.setOnAction(ev -> {
@@ -142,18 +154,63 @@ public class Demo extends Application {
             })).play();
         });
         return b;
-    }    
-    
-    private DialogView createLoading() {
+    }
 
-        ProgressBar p = new ProgressBar();
-        p.getStyleClass().add("loading-bar");
+    private DialogView createLoading() {
 
         DialogView dialog = new DialogView();
         dialog.setMaster(true);
         dialog.setAnimate(false);
-        dialog.setContent(p);
+        dialog.setContent(createLoadingNode());
         return dialog;
+    }
+
+    private Node createLoadingNode() {
+
+        Circle c0 = new Circle(65);
+        c0.setFill(Color.TRANSPARENT);
+        c0.setStrokeWidth(0.0);
+
+        Circle c1 = new Circle(50);
+        c1.setFill(Color.TRANSPARENT);
+        c1.setStrokeType(StrokeType.INSIDE);
+        c1.setStrokeLineCap(StrokeLineCap.ROUND);
+        c1.setStrokeWidth(8.0);
+        c1.setStroke(Color.BLUE);
+        c1.getStrokeDashArray().addAll(78.54); // 50 * 2 * 3.1416 / 4
+        c1.setCache(true);
+        c1.setCacheHint(CacheHint.ROTATE);
+        setRotate(c1, true, 440.0, 10);
+
+        Circle c2 = new Circle(40);
+        c2.setFill(Color.TRANSPARENT);
+        c2.setStrokeType(StrokeType.INSIDE);
+        c2.setStrokeLineCap(StrokeLineCap.ROUND);
+        c2.setStrokeWidth(8.0);
+        c2.setStroke(Color.BLUE);
+        c2.getStrokeDashArray().addAll(41.89); // 40 * 2 * 3.1416 / 6
+        c2.setCache(true);
+        c2.setCacheHint(CacheHint.ROTATE);
+        setRotate(c2, true, 360.0, 14);
+
+        Circle c11 = new Circle(30);
+        c11.setFill(Color.TRANSPARENT);
+        c11.setStrokeType(StrokeType.INSIDE);
+        c11.setStrokeLineCap(StrokeLineCap.BUTT);
+        c11.setStrokeWidth(8.0);
+        c11.setStroke(Color.BLUE);
+
+        return new Group(c0, c11, c1, c2);
+    }
+
+    private void setRotate(Shape s, boolean reverse, double angle, int duration) {
+        RotateTransition r = new RotateTransition(Duration.seconds(duration), s);
+        r.setAutoReverse(reverse);
+        r.setDelay(Duration.ZERO);
+        r.setRate(3.0);
+        r.setCycleCount(RotateTransition.INDEFINITE);
+        r.setByAngle(angle);
+        r.play();
     }
 
     public static void main(String[] args) {
