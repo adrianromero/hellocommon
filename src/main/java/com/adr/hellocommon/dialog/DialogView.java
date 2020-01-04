@@ -1,6 +1,6 @@
 //    HelloCommon are basic JavaFX utilities
 //
-//    Copyright (C) 2015-2019 Adrián Romero Corchado.
+//    Copyright (C) 2015-2020 Adrián Romero Corchado.
 //
 //    Licensed to the Apache Software Foundation (ASF) under one
 //    or more contributor license agreements.  See the NOTICE file
@@ -44,37 +44,38 @@ import javafx.scene.layout.StackPane;
  */
 public class DialogView {
 
-    private final ResourceBundle resources;  
-    
-    private StackPane parent;    
+    private final ResourceBundle resources;
+
+    private StackPane parent;
     private StackPane rootpane = null;
-    
+
     private final BorderPane header;
     private final BorderPane bodydialog;
     private final Button closebutton;
     private final Label nodetitle;
     private final StackPane nodecontent;
-    
+
     private ButtonBar nodebuttons = null;
     private Label nodeindicator = null;
     private boolean master = false;
     private boolean animate = true;
-    
-    private Consumer<ActionEvent> actionok = null;    
-    private Consumer<ActionEvent> actiondispose = null;    
-    
+
+    private Consumer<ActionEvent> actionok = null;
+    private Consumer<ActionEvent> actiondispose = null;
+    private Consumer<ActionEvent> actionclose = null;
+
     public DialogView() {
         resources = ResourceBundle.getBundle("com/adr/hellocommon/fxml/dialogview");
-        
+
         bodydialog = new BorderPane();
         bodydialog.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
         bodydialog.getStyleClass().add("dialog-body");
-        
+
         header = new BorderPane();
         header.getStyleClass().add("dialog-title");
-        header.setVisible(false); 
+        header.setVisible(false);
         BorderPane.setAlignment(header, Pos.CENTER);
-        
+
         closebutton = new Button();
         closebutton.setGraphic(IconBuilder.create(IconFontGlyph.FA_SOLID_TIMES).styleClass("dialog-close-icon").build());
         closebutton.setCancelButton(true);
@@ -84,21 +85,21 @@ public class DialogView {
         BorderPane.setAlignment(closebutton, Pos.TOP_CENTER);
         ButtonBar.setButtonData(closebutton, ButtonBar.ButtonData.OK_DONE);
         closebutton.setOnAction(this::onClose);
-        
+
         header.setRight(closebutton);
-        
+
         nodetitle = new Label();
         nodetitle.getStyleClass().add("dialog-title-text");
         BorderPane.setAlignment(nodetitle, Pos.CENTER);
-        
+
         header.setLeft(nodetitle);
-        
+
         bodydialog.setTop(header);
-        
+
         nodecontent = new StackPane();
         nodecontent.getStyleClass().add("dialog-content");
         BorderPane.setAlignment(nodecontent, Pos.CENTER);
-        
+
         bodydialog.setCenter(nodecontent);
     }
 
@@ -111,16 +112,16 @@ public class DialogView {
             bodydialog.getStylesheets().add(getClass().getResource(css).toExternalForm());
         }
     }
-    
+
     public void setTitle(String title) {
         header.setVisible(true);
         nodetitle.setText(title);
     }
-    
+
     public void setCloseButtonVisible(boolean visible) {
         closebutton.setVisible(visible);
     }
-    
+
     public void setMessage(String message) {
         Label lbl = new Label(message);
         lbl.getStyleClass().add("dialog-label");
@@ -129,11 +130,11 @@ public class DialogView {
     }
 
     public void setContent(Node node) {
-        nodecontent.getChildren().add(node);       
+        nodecontent.getChildren().add(node);
     }
-    
+
     public void setIndicator(Node indicator) {
-        
+
         if (nodeindicator == null) {
             nodeindicator = new Label();
             nodeindicator.getStyleClass().add("dialog-indicator");
@@ -142,11 +143,15 @@ public class DialogView {
         }
         nodeindicator.setGraphic(indicator);
     }
-    
+
     public void setActionOK(Consumer<ActionEvent> actionok) {
         this.actionok = actionok;
-    }  
-    
+    }
+
+    public void setActionClose(Consumer<ActionEvent> actionclose) {
+        this.actionclose = actionclose;
+    }
+
     public void setActionDispose(Consumer<ActionEvent> actiondispose) {
         this.actiondispose = actiondispose;
     }
@@ -158,54 +163,54 @@ public class DialogView {
     public void setMaster(boolean master) {
         this.master = master;
     }
-    
+
     public boolean isAnimate() {
         return animate;
     }
-    
+
     public void setAnimate(boolean animate) {
         this.animate = animate;
     }
-    
+
     public void addButtons(Button... buttons) {
-        
+
         if (nodebuttons == null) {
             nodebuttons = new ButtonBar();
             nodebuttons.getStyleClass().add("dialog-buttonlist");
             BorderPane.setAlignment(nodebuttons, Pos.CENTER);
-            bodydialog.setBottom(nodebuttons);            
+            bodydialog.setBottom(nodebuttons);
         }
         nodebuttons.getButtons().addAll(buttons);
     }
-    
+
     public Button createCloseButton() {
-        Button cancel = new Button (resources.getString("button.Close"));
+        Button cancel = new Button(resources.getString("button.Close"));
         cancel.setOnAction((ActionEvent event) -> {
             dispose();
         });
-        ButtonBar.setButtonData(cancel, ButtonBar.ButtonData.CANCEL_CLOSE);   
-        return cancel;
-    } 
-    
-    public Button createCancelButton() {
-        Button cancel = new Button (resources.getString("button.Cancel"));
-        cancel.setOnAction((ActionEvent event) -> {
-            dispose();
-        });
-        ButtonBar.setButtonData(cancel, ButtonBar.ButtonData.CANCEL_CLOSE);   
+        ButtonBar.setButtonData(cancel, ButtonBar.ButtonData.CANCEL_CLOSE);
         return cancel;
     }
-    
+
+    public Button createCancelButton() {
+        Button cancel = new Button(resources.getString("button.Cancel"));
+        cancel.setOnAction((ActionEvent event) -> {
+            dispose();
+        });
+        ButtonBar.setButtonData(cancel, ButtonBar.ButtonData.CANCEL_CLOSE);
+        return cancel;
+    }
+
     public Button createOKButton() {
-        Button ok = new Button (resources.getString("button.OK"));
+        Button ok = new Button(resources.getString("button.OK"));
         ok.setOnAction((ActionEvent event) -> {
             doOK();
         });
         ok.setDefaultButton(true);
-        ButtonBar.setButtonData(ok, ButtonBar.ButtonData.OK_DONE);   
+        ButtonBar.setButtonData(ok, ButtonBar.ButtonData.OK_DONE);
         return ok;
     }
-    
+
     public void show(StackPane parent) {
         this.parent = parent;
         ObservableList<Node> children = parent.getChildren();
@@ -215,25 +220,22 @@ public class DialogView {
 
         rootpane = new StackPane(bodydialog);
         rootpane.setPadding(new Insets(10.0));
-        rootpane.getProperties().put("DIALOG_VIEW", this);        
+        rootpane.getProperties().put("DIALOG_VIEW", this);
         parent.getChildren().add(rootpane);
-        
+
         bodydialog.setDisable(false);
-        
+
         if (animate) {
             ShowAnimation.createAnimationShowDialog(bodydialog).playFromStart();
         }
     }
-    
+
     private void handledispose() {
         if (actiondispose != null) {
             ActionEvent disposeevent = new ActionEvent();
             actiondispose.accept(disposeevent);
-            if (disposeevent.isConsumed()) {
-                return;
-            }
         }
-        
+
         if (parent != null) {
             ObservableList<Node> children = parent.getChildren();
             children.remove(rootpane);
@@ -242,14 +244,21 @@ public class DialogView {
             if (!children.isEmpty()) {
                 children.get(children.size() - 1).setDisable(false);
             }
-            parent = null;          
+            parent = null;
         }
     }
-    
+
     public void dispose() {
-        
+        if (actionclose != null) {
+            ActionEvent closeevent = new ActionEvent();
+            actionclose.accept(closeevent);
+            if (closeevent.isConsumed()) {
+                return;
+            }
+        }
+
         bodydialog.setDisable(true);
-        
+
         if (animate) {
             Animation closeanimation = ShowAnimation.createAnimationHideDialog(bodydialog);
             closeanimation.playFromStart();
@@ -258,13 +267,13 @@ public class DialogView {
             handledispose();
         }
     }
-    
+
     public boolean isShowing() {
         return parent != null;
     }
-    
+
     public void doOK() {
-        
+
         if (actionok != null) {
             ActionEvent okevent = new ActionEvent();
             actionok.accept(okevent);
@@ -272,10 +281,10 @@ public class DialogView {
                 return;
             }
         }
-        
-        dispose();        
+
+        dispose();
     }
-    
+
     protected void onClose(ActionEvent event) {
         dispose();
     }
