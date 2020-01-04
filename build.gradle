@@ -1,6 +1,6 @@
 //    HelloCommon are basic JavaFX utilities
 //
-//    Copyright (C) 2015-2018 Adrián Romero Corchado.
+//    Copyright (C) 2015-2020 Adrián Romero Corchado.
 //
 //    Licensed to the Apache Software Foundation (ASF) under one
 //    or more contributor license agreements.  See the NOTICE file
@@ -17,12 +17,11 @@
 //    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
 //    KIND, either express or implied.  See the License for the
 //    specific language governing permissions and limitations
-//    under the License.   
-    
+//    under the License.
+
 plugins {
-  id 'java'
-  id 'maven'
-  id 'application'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.8'
 }
 
 group = 'com.github.adrianromero'
@@ -35,15 +34,22 @@ description = """"""
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+compileJava {
+    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+}
 
 repositories {
-    mavenLocal()
     mavenCentral()
     maven { url 'https://jitpack.io' }
 }
 
+javafx {
+    version = "11.0.2"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
 dependencies {
-    compile group: 'com.github.adrianromero', name: 'fonticon', version:'2.0.100'
+    compile group: 'com.github.adrianromero', name: 'fonticon', version:'2.0.210'
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
@@ -53,18 +59,4 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 
 artifacts {
     archives sourcesJar
-}
-
-install {
-  repositories.mavenInstaller {
-    pom.project {
-      licenses {
-        license {
-          name 'The Apache Software License, Version 2.0'
-          url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-          distribution 'repo'
-        }
-      }
-    }
-  }
 }
